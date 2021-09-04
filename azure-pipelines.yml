@@ -15,6 +15,11 @@ variables:
   buildConfiguration: 'Release'
   
 steps:
+- script: '(echo $(Build.BuildNumber) && echo $(Build.BuildId)) > .buildinfo.json'
+  displayName: "Emit build number"
+  workingDirectory: '$(Build.SourcesDirectory)/Blog'
+  failOnStderr: true
+  
 - task: NuGetToolInstaller@1
 
 - task: DotNetCoreCLI@2
