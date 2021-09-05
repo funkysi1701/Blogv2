@@ -1,0 +1,35 @@
+﻿@page "/"
+
+@inject BlogService BlogService
+
+@if (blogs == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <Tag></Tag>
+    <div style="column-count: 2;">
+        @foreach (var post in blogs)
+        {
+            <div>
+                <h4><a href="/posts/@post.Slug">@post.Title</a></h4>
+                <p>
+                    <small>@post.Published_At.Value.ToString("dd MMMM yyyy", CultureInfo.CurrentCulture)</small>
+                    &nbsp;@post.Description
+                </p>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<BlogPosts>
+    blogs;
+
+    protected override async Task OnInitializedAsync()
+    {
+        blogs = await BlogService.GetBlogsAsync();
+        blogs = blogs.Where(x => x.Published).ToList();
+    }
+}

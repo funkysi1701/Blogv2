@@ -1,0 +1,59 @@
+﻿@page "/posts/{slug}"
+@inherits BlogPostBase
+
+@if (thisblog == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h2>@thisblog.Title</h2>
+    <small>@thisblog.Published_At.Value.ToString("dd MMMM yyyy", CultureInfo.CurrentCulture)</small>
+    <br />
+    @foreach (var item in thisblog.Tag_List)
+    {
+        <span class="badge bg-info">@item</span><span>&nbsp;</span>
+    }
+    <p></p>
+    @if (!string.IsNullOrEmpty(thisblog.Cover_Image))
+    {
+        <img src="@thisblog.Cover_Image" style="float:none" />
+    }
+    @((MarkupString)thisblogsingle.Body_Html)
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="@thisblog.Title" />
+    <meta name="twitter:description" content="@thisblog.Description" />
+    <meta name="twitter:image" content="https://www.funkysi1701.com/wp-content/uploads/2014/09/1922276.jpg" />
+    <meta name="twitter:url" content="@thisblog.Canonical_Url" />
+    <meta name="twitter:site" content="@@funkysi1701" />
+    <meta property="og:url" content="@thisblog.Canonical_Url" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="@thisblog.Description" />
+    <meta property="og:title" content="@thisblog.Title" />
+    <meta property="og:image" content="https://www.funkysi1701.com/wp-content/uploads/2014/09/1922276.jpg" />
+    @if (!string.IsNullOrEmpty(thisblog.User.Profile_Image_90))
+    {
+        <div>
+            <img src="@thisblog.User.Profile_Image_90" style="float:left;margin-right:5px" />
+        </div>
+        <div>
+            <span>Simon Foster</span><br />
+            <span>
+                @if (thisblog.Page_Views_Count > 0)
+                {
+                    <span class="badge bg-success">Views: <span class="badge badge-warning">@thisblog.Page_Views_Count</span></span>
+                }
+                &nbsp;
+                @if (thisblog.Positive_Reactions_Count > 0)
+                {
+                    <span class="badge bg-success">Reactions: <span class="badge badge-warning">@thisblog.Positive_Reactions_Count</span></span>
+                }
+                &nbsp;
+                @if (thisblog.Comments_Count > 0)
+                {
+                    <span class="badge bg-success">Comments: <span class="badge badge-warning">@thisblog.Comments_Count</span></span>
+                }
+            </span>
+        </div>
+    }
+}
