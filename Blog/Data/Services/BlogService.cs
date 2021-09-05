@@ -11,19 +11,19 @@ namespace Blog.Data.Services
     {
         private HttpClient Client { get; set; }
 
-        public BlogService()
+        public BlogService(HttpClient httpClient)
         {
-            Client = new HttpClient();
+            Client = httpClient;
         }
 
         public async Task<List<BlogPosts>> GetBlogsAsync()
         {
-            return await Client.GetFromJsonAsync<List<BlogPosts>>(new Uri("/api/GetAllBlogs"));
+            return await Client.GetFromJsonAsync<List<BlogPosts>>(new Uri($"{Client.BaseAddress}/api/GetAllBlogs"));
         }
 
         public async Task<BlogPostsSingle> GetBlogPostAsync(int id)
         {
-            return await Client.GetFromJsonAsync<BlogPostsSingle>(new Uri($"/api/GetPost?id={id}"));
+            return await Client.GetFromJsonAsync<BlogPostsSingle>(new Uri($"{Client.BaseAddress}/api/GetPost?id={id}"));
         }
     }
 }
