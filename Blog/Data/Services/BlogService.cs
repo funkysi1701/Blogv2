@@ -1,4 +1,5 @@
 ﻿using Blog.Core;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -11,19 +12,20 @@ namespace Blog.Data.Services
     {
         private HttpClient Client { get; set; }
 
-        public BlogService(HttpClient httpClient)
+        public BlogService(HttpClient httpClient, IConfiguration config)
         {
             Client = httpClient;
+            Client.BaseAddress = new Uri(config.GetValue<string>("BaseURL"));
         }
 
         public async Task<List<BlogPosts>> GetBlogsAsync()
         {
-            return await Client.GetFromJsonAsync<List<BlogPosts>>(new Uri($"{Client.BaseAddress}/api/GetAllBlogs"));
+            return await Client.GetFromJsonAsync<List<BlogPosts>>(new Uri($"{Client.BaseAddress}api/GetAllBlogs"));
         }
 
         public async Task<BlogPostsSingle> GetBlogPostAsync(int id)
         {
-            return await Client.GetFromJsonAsync<BlogPostsSingle>(new Uri($"{Client.BaseAddress}/api/GetPost?id={id}"));
+            return await Client.GetFromJsonAsync<BlogPostsSingle>(new Uri($"{Client.BaseAddress}api/GetPost?id={id}"));
         }
     }
 }
