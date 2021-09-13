@@ -1,0 +1,19 @@
+﻿@page "/metrics"
+@page "/metrics/{Offset:int}"
+@inherits MetricsBase
+
+<h2>Metrics</h2>
+
+<p>A page of metrics about me from various services.</p>
+
+<div class="text-center">
+    <a @onclick="@PrevDay" @onclick:preventDefault href="#">Prev Day</a>
+    <a @onclick="@NextDay" @onclick:preventDefault href="#">Next Day</a>
+</div>
+
+<div class="post-content">
+    @for (int i = 0; i < (int)MetricType.Electricity + 1; i++)
+    {
+        <Chart Type="@((MetricType)i)" OffSet="@OffSet"></Chart>
+    }
+</div>
