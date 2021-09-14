@@ -27,5 +27,10 @@ namespace Blog.Data.Services
         {
             return await Client.GetFromJsonAsync<BlogPostsSingle>(new Uri($"{Client.BaseAddress}api/GetPost?id={id}"));
         }
+
+        public async Task<IList<IList<ChartView>>> GetChart(int type, int day, int OffSet)
+        {
+            return await Client.GetFromJsonAsync<IList<IList<ChartView>>>(new Uri($"{Client.BaseAddress}api/GetChart?type={type}&day={day}&offset={OffSet}"));
+        }
     }
 }
