@@ -1,23 +1,61 @@
-﻿using Blog.Core;
-using Blog.Func.context;
-using Microsoft.Extensions.Configuration;
+using Blog.Core;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Cosmos;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.Http;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
+using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Blog.Func
 {
-    public class MetricService
+    public class Chart
     {
-        private readonly MetricsContext _context;
-        public MetricService(IConfiguration config)
+        private readonly CosmosClient _cosmosClient;
+
+        private readonly Database _database;
+        private readonly Container _container;
+
+        public Chart(CosmosClient cosmosClient)
         {
-            _context = new MetricsContext(config);
+            _cosmosClient = cosmosClient;
+
+            _database = _cosmosClient.GetDatabase("Metrics");
+            _container = _database.GetContainer("Metrics");
+        }
+
+
+        [FunctionName("GetChart")]
+        [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        [OpenApiParameter(name: "type", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **type** parameter")]
+        [OpenApiParameter(name: "day", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **day** parameter")]
+        [OpenApiParameter(name: "offset", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **offset** parameter")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IList<IList<ChartView>>), Description = "The OK response")]
+        public async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            ILogger log)
+        {
+            log.LogInformation("GetChart");
+            
+
+            MetricType type = (MetricType)int.Parse(req.Query["type"]);
+            MyChartType day = (MyChartType)int.Parse(req.Query["day"]);
+            int OffSet = int.Parse(req.Query["offset"]);
+            var result = GetChart(type, day, OffSet);
+            return new OkObjectResult(result);
         }
 
         public IList<IList<ChartView>> GetChart(MetricType type, MyChartType day, int OffSet)
         {
-            var metrics = _context.Metrics.Where(x => x.Type == (int)type).ToList();
+            var metrics = _container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type == (int)type).ToList();
             List<Metric> LiveMetrics;
             List<Metric> PrevMetrics;
             if (type >= MetricType.Gas)

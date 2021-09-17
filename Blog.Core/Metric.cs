@@ -4,7 +4,7 @@ namespace Blog.Core
 {
     public class Metric
     {
-        public long Id { get; set; }
+        public string Id { get; set; }
         public string PartitionKey { get; set; }
         public decimal? Value { get; set; }
         public DateTime? Date { get; set; }
