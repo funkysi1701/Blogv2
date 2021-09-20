@@ -35,5 +35,35 @@ namespace Blog.Data.Services
         {
             return await Client.GetFromJsonAsync<IList<IList<ChartView>>>(new Uri($"{Client.BaseAddress}api/GetChart?type={type}&day={day}&offset={OffSet}"));
         }
+
+        public async Task<List<Metric>> Get(int type)
+        {
+            return await Client.GetFromJsonAsync<List<Metric>>(new Uri($"{Client.BaseAddress}api/Get?type={type}"));
+        }
+
+        public async Task<List<Metric>> GetAll()
+        {
+            return await Client.GetFromJsonAsync<List<Metric>>(new Uri($"{Client.BaseAddress}api/GetAll"));
+        }
+
+        public async Task SaveData(decimal value, int type)
+        {
+            await Client.PostAsync(new Uri($"{Client.BaseAddress}api/SaveData?type={type}&value={value}"), null);
+        }
+
+        public async Task SaveData(decimal value, int type, DateTime To)
+        {
+            await Client.PostAsync(new Uri($"{Client.BaseAddress}api/SaveData?type={type}&value={value}&date={To}"), null);
+        }
+
+        public async Task Delete(int type, DateTime dt)
+        {
+            await Client.DeleteAsync(new Uri($"{Client.BaseAddress}api/Delete?type={type}&date={dt}"));
+        }
+
+        public async Task GetCommits()
+        {
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetCommits"));
+        }
     }
 }
