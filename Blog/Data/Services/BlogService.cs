@@ -15,7 +15,15 @@ namespace Blog.Data.Services
         public BlogService(HttpClient httpClient, IConfiguration config)
         {
             Client = httpClient;
-            Client.BaseAddress = new Uri(config.GetValue<string>("BaseURL"));
+            var builder = WebAssemblyHostBuilder.CreateDefault();
+            if (!string.IsNullOrEmpty(config.GetValue<string>("BaseURL")))
+            {
+                Client.BaseAddress = new Uri(config.GetValue<string>("BaseURL"));
+            }
+            else
+            {
+                Client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
+            }
         }
 
         public async Task<List<BlogPosts>> GetBlogsAsync()
