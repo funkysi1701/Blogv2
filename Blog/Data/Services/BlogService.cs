@@ -1,5 +1,4 @@
 ﻿using Blog.Core;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -16,14 +15,9 @@ namespace Blog.Data.Services
         public BlogService(HttpClient httpClient, IConfiguration config)
         {
             Client = httpClient;
-            var builder = WebAssemblyHostBuilder.CreateDefault();
             if (!string.IsNullOrEmpty(config.GetValue<string>("BaseURL")))
             {
                 Client.BaseAddress = new Uri(config.GetValue<string>("BaseURL"));
-            }
-            else
-            {
-                Client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
             }
         }
 
