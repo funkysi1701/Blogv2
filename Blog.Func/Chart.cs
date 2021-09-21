@@ -18,19 +18,15 @@ namespace Blog.Func
 {
     public class Chart
     {
-        private readonly CosmosClient _cosmosClient;
-
-        private readonly Database _database;
         private readonly Container _container;
 
         public Chart(CosmosClient cosmosClient)
         {
-            _cosmosClient = cosmosClient;
+            var _cosmosClient = cosmosClient;
 
-            _database = _cosmosClient.GetDatabase("Metrics");
+            var _database = _cosmosClient.GetDatabase("Metrics");
             _container = _database.GetContainer("Metrics");
         }
-
 
         [FunctionName("GetChart")]
         [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
@@ -44,7 +40,6 @@ namespace Blog.Func
             ILogger log)
         {
             log.LogInformation("GetChart");
-            
 
             MetricType type = (MetricType)int.Parse(req.Query["type"]);
             MyChartType day = (MyChartType)int.Parse(req.Query["day"]);
