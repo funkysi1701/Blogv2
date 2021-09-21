@@ -31,9 +31,9 @@ namespace Blog.Data.Services
             return await Client.GetFromJsonAsync<BlogPostsSingle>(new Uri($"{Client.BaseAddress}api/GetPost?id={id}"));
         }
 
-        public async Task<IList<IList<ChartView>>> GetChart(int type, int day, int OffSet)
+        public async Task<IList<IList<ChartView>>> GetChart(int type, int day, int offSet, string username)
         {
-            return await Client.GetFromJsonAsync<IList<IList<ChartView>>>(new Uri($"{Client.BaseAddress}api/GetChart?type={type}&day={day}&offset={OffSet}"));
+            return await Client.GetFromJsonAsync<IList<IList<ChartView>>>(new Uri($"{Client.BaseAddress}api/GetChart?type={type}&day={day}&offset={offSet}&username={username}"));
         }
 
         public async Task<List<Metric>> Get(int type)
@@ -64,6 +64,26 @@ namespace Blog.Data.Services
         public async Task GetCommits()
         {
             await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetCommits"));
+        }
+
+        public async Task GetGitHubStars()
+        {
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGitHubStars"));
+        }
+
+        public async Task GetGitHubRepo()
+        {
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGitHubRepo"));
+        }
+
+        public async Task GetGitHubFollowers()
+        {
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGitHubFollowers"));
+        }
+
+        public async Task GetGitHubFollowing()
+        {
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGitHubFollowing"));
         }
     }
 }

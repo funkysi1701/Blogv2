@@ -1,4 +1,5 @@
 ﻿@page "/metrics"
+@page "/metrics/{Username}"
 @page "/metrics/{Offset:int}"
 @inherits MetricsBase
 
@@ -9,6 +10,6 @@
 <div class="post-content">
     @for (int i = 0; i < (int)MetricType.Electricity + 1; i++)
     {
-        <Chart Type="@((MetricType)i)" OffSet="@OffSet"></Chart>
+        <Chart Type="@((MetricType)i)" OffSet="@OffSet" Username="@Username"></Chart>
     }
 </div>

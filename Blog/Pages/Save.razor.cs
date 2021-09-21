@@ -28,13 +28,13 @@ namespace Blog.Pages
             await BlogService.GetCommits();
 
             //await TwitterService.GetTwitterFav();
-            //await GithubService.GetGitHubStars();
-            //await GithubService.GetGitHubRepo();
+            await BlogService.GetGitHubStars();
+            await BlogService.GetGitHubRepo();
             //await TwitterService.GetTwitterFollowers();
             //await TwitterService.GetTwitterFollowing();
             //await TwitterService.GetNumberOfTweets();
-            //await GithubService.GetGitHubFollowers();
-            //await GithubService.GetGitHubFollowing();
+            await BlogService.GetGitHubFollowers();
+            await BlogService.GetGitHubFollowing();
             //await DevToService.GetDevTo();
             var r = new Random();
             var rnd = r.Next(2);

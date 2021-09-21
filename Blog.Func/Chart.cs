@@ -26,59 +26,20 @@ namespace Blog.Func
             var _cosmosClient = cosmosClient;
             GithubService = githubService;
             var _database = _cosmosClient.GetDatabase("Metrics");
-            _container = _database.GetContainer("Metrics");
+            _container = _database.GetContainer("Data");
         }
 
-        [FunctionName("SaveData")]
-        [OpenApiOperation(operationId: "SaveDataFn", tags: new[] { "name" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiParameter(name: "type", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **type** parameter")]
-        [OpenApiParameter(name: "value", In = ParameterLocation.Query, Required = true, Type = typeof(decimal), Description = "The **value** parameter")]
-        public async Task<IActionResult> SaveDataFn(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-            ILogger log,
-            ExecutionContext context)
-        {
-            int type = int.Parse(req.Query["type"]);
-            decimal value = decimal.Parse(req.Query["value"]);
-            return await SaveData(value, type);
-        }
-
-        public async Task<IActionResult> SaveData(decimal value, int type)
+        public async Task<IActionResult> SaveData(decimal value, int type, string Username)
         {
             var m = new Metric
             {
-                Id = DateTime.UtcNow.Ticks.ToString(),
+                MetricId = DateTime.UtcNow.Ticks,
+                id = DateTime.UtcNow.Ticks.ToString(),
                 Date = DateTime.UtcNow,
                 Type = type,
                 Value = value,
-                PartitionKey = "1"
-            };
-            await _container.CreateItemAsync(m);
-            return new OkResult();
-        }
-
-        [FunctionName("Save")]
-        [OpenApiOperation(operationId: "Save", tags: new[] { "name" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiParameter(name: "type", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **type** parameter")]
-        [OpenApiParameter(name: "value", In = ParameterLocation.Query, Required = true, Type = typeof(decimal), Description = "The **value** parameter")]
-        [OpenApiParameter(name: "To", In = ParameterLocation.Query, Required = true, Type = typeof(DateTime), Description = "The **To** parameter")]
-        public async Task<IActionResult> Save(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-            ILogger log,
-            ExecutionContext context)
-        {
-            int type = int.Parse(req.Query["type"]);
-            decimal value = decimal.Parse(req.Query["value"]);
-            DateTime To = DateTime.Parse(req.Query["To"]);
-            var m = new Metric
-            {
-                Id = DateTime.UtcNow.Ticks.ToString(),
-                Date = To,
-                Type = type,
-                Value = value,
-                PartitionKey = "1"
+                PartitionKey = "1",
+                Username = Username
             };
             await _container.CreateItemAsync(m);
             return new OkResult();
@@ -90,6 +51,7 @@ namespace Blog.Func
         [OpenApiParameter(name: "type", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **type** parameter")]
         [OpenApiParameter(name: "day", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **day** parameter")]
         [OpenApiParameter(name: "offset", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **offset** parameter")]
+        [OpenApiParameter(name: "username", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **username** parameter")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IList<IList<ChartView>>), Description = "The OK response")]
         public IActionResult GetChart(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
@@ -100,7 +62,8 @@ namespace Blog.Func
             MetricType type = (MetricType)int.Parse(req.Query["type"]);
             MyChartType day = (MyChartType)int.Parse(req.Query["day"]);
             int OffSet = int.Parse(req.Query["offset"]);
-            var result = GetChartDetails(type, day, OffSet);
+            string username = req.Query["username"];
+            var result = GetChartDetails(type, day, OffSet, username);
             return new OkObjectResult(result);
         }
 
@@ -140,9 +103,45 @@ namespace Blog.Func
             await GithubService.GetCommits();
         }
 
-        public IList<IList<ChartView>> GetChartDetails(MetricType type, MyChartType day, int OffSet)
+        [FunctionName("GetGitHubStars")]
+        [OpenApiOperation(operationId: "GetGitHubStars", tags: new[] { "name" })]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        public async Task GetGitHubStars([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+ILogger log)
         {
-            var metrics = _container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type == (int)type).ToList();
+            await GithubService.GetGitHubStars();
+        }
+
+        [FunctionName("GetGitHubRepo")]
+        [OpenApiOperation(operationId: "GetGitHubRepo", tags: new[] { "name" })]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        public async Task GetGitHubRepo([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+ILogger log)
+        {
+            await GithubService.GetGitHubRepo();
+        }
+
+        [FunctionName("GetGitHubFollowers")]
+        [OpenApiOperation(operationId: "GetGitHubFollowers", tags: new[] { "name" })]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        public async Task GetGitHubFollowers([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+ILogger log)
+        {
+            await GithubService.GetGitHubFollowers();
+        }
+
+        [FunctionName("GetGitHubFollowing")]
+        [OpenApiOperation(operationId: "GetGitHubFollowing", tags: new[] { "name" })]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        public async Task GetGitHubFollowing([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+ILogger log)
+        {
+            await GithubService.GetGitHubFollowing();
+        }
+
+        public IList<IList<ChartView>> GetChartDetails(MetricType type, MyChartType day, int OffSet, string username)
+        {
+            var metrics = _container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type == (int)type && x.Username == username).ToList();
             List<Metric> LiveMetrics;
             List<Metric> PrevMetrics;
             if (type >= MetricType.Gas)

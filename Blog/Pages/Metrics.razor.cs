@@ -6,5 +6,8 @@ namespace Blog.Pages
     {
         [Parameter]
         public int OffSet { get; set; } = 0;
+
+        [Parameter]
+        public string Username { get; set; } = "funkysi1701";
     }
 }
