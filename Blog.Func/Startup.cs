@@ -26,7 +26,6 @@ namespace Blog.Func
                     .WithApplicationRegion("UK South")
                     .Build();
             });
-            builder.Services.AddLogging();
         }
     }
 }
