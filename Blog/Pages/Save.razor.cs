@@ -1,6 +1,5 @@
 ﻿using Blog.Data.Services;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Threading.Tasks;
 
 namespace Blog.Pages
@@ -30,16 +29,9 @@ namespace Blog.Pages
             await BlogService.GetNumberOfTweets();
 
             await BlogService.GetDevTo();
-            var r = new Random();
-            var rnd = r.Next(2);
-            if (rnd == 1)
-            {
-                await BlogService.GetElec();
-            }
-            else
-            {
-                await BlogService.GetGas();
-            }
+
+            await BlogService.GetElec();
+            await BlogService.GetGas();
 
             UriHelper.NavigateTo("/metrics", true);
         }
