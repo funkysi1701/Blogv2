@@ -19,11 +19,12 @@ namespace Blog.Func
     public class Chart
     {
         private readonly Container _container;
+        private readonly GithubService GithubService;
 
         public Chart(CosmosClient cosmosClient, GithubService githubService)
         {
             var _cosmosClient = cosmosClient;
-
+            GithubService = githubService;
             var _database = _cosmosClient.GetDatabase("Metrics");
             _container = _database.GetContainer("Metrics");
         }
