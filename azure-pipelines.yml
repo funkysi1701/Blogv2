@@ -9,6 +9,10 @@ trigger:
 pool:
   vmImage: windows-latest
 
+variables:
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
 steps:
 - task: SonarCloudPrepare@1
   inputs:
@@ -18,6 +22,13 @@ steps:
     projectKey: 'funkysi1701_Blogv2'
     projectName: 'Blogv2'
     projectVersion: '$(Build.BuildId)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build Web'
+  inputs:
+    command: 'build'
+    projects: 'Blog.sln'
+    arguments: '--configuration $(BuildConfiguration)'
 
 - task: SonarCloudAnalyze@1
 
