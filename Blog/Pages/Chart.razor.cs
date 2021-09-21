@@ -42,6 +42,10 @@ namespace Blog.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            if (string.IsNullOrEmpty(Username))
+            {
+                Username = "funkysi1701";
+            }
             await Load();
         }
 
