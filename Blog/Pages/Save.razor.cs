@@ -1,20 +1,14 @@
 ﻿using Blog.Data.Services;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Blog.Pages
 {
     public class SaveMetricsBase : ComponentBase
     {
-        //[Inject] private GithubService GithubService { get; set; }
-        [Inject] private DevToService DevToService { get; set; }
-
         [Inject] private BlogService BlogService { get; set; }
 
-        //[Inject] private PowerService PowerService { get; set; }
         [Inject] private NavigationManager UriHelper { get; set; }
 
         protected override async Task OnInitializedAsync()
@@ -35,16 +29,16 @@ namespace Blog.Pages
             await BlogService.GetTwitterFollowing();
             await BlogService.GetNumberOfTweets();
 
-            //await DevToService.GetDevTo();
+            await BlogService.GetDevTo();
             var r = new Random();
             var rnd = r.Next(2);
             if (rnd == 1)
             {
-                //await PowerService.GetElec();
+                await BlogService.GetElec();
             }
             else
             {
-                //await PowerService.GetGas();
+                await BlogService.GetGas();
             }
 
             UriHelper.NavigateTo("/metrics", true);

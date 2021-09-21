@@ -105,5 +105,20 @@ namespace Blog.Data.Services
         {
             await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetNumberOfTweets"));
         }
+
+        public async Task GetDevTo()
+        {
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetDevTo"));
+        }
+
+        public async Task GetElec()
+        {
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetElec"));
+        }
+
+        public async Task GetGas()
+        {
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGas"));
+        }
     }
 }

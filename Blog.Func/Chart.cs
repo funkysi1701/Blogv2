@@ -7,6 +7,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
@@ -44,6 +45,31 @@ namespace Blog.Func
             return new OkResult();
         }
 
+        public async Task<IActionResult> SaveData(decimal value, int type, DateTime To, string Username)
+        {
+            var m = new Metric
+            {
+                MetricId = DateTime.UtcNow.Ticks,
+                id = DateTime.UtcNow.Ticks.ToString(),
+                Date = To,
+                Type = type,
+                Value = value,
+                PartitionKey = "1",
+                Username = Username
+            };
+            await _container.CreateItemAsync(m);
+            return new OkResult();
+        }
+
+        public async Task Delete(int type, DateTime dt)
+        {
+            var m = _container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type == type && x.Date == dt).ToList();
+            foreach (var item in m)
+            {
+                await _container.DeleteItemAsync<Metric>(item.id, new PartitionKey(item.PartitionKey));
+            }
+        }
+
         [FunctionName("GetChart")]
         [OpenApiOperation(operationId: "GetChart", tags: new[] { "name" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
@@ -67,14 +93,19 @@ namespace Blog.Func
         }
 
         [FunctionName("Get")]
-        [OpenApiOperation(operationId: "Get", tags: new[] { "name" })]
+        [OpenApiOperation(operationId: "GetFn", tags: new[] { "name" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         [OpenApiParameter(name: "type", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **type** parameter")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(List<Metric>), Description = "The OK response")]
-        public List<Metric> Get([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+        public async Task<List<Metric>> GetFn([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             int type = int.Parse(req.Query["type"]);
+            return await Get(type);
+        }
+
+        public async Task<List<Metric>> Get(int type)
+        {
             return _container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type == type).ToList();
         }
 

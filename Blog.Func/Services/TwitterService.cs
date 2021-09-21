@@ -78,7 +78,7 @@ namespace Blog.Func.Services
         }
 
         [FunctionName("GetTwitterFav")]
-        [OpenApiOperation(operationId: "GetTwitterFavFn", tags: new[] { "name" })]
+        [OpenApiOperation(operationId: "GetTwitterFavFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         public async Task GetTwitterFavFn(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
@@ -88,7 +88,7 @@ namespace Blog.Func.Services
         }
 
         [FunctionName("GetNumberOfTweets")]
-        [OpenApiOperation(operationId: "GetNumberOfTweetsFn", tags: new[] { "name" })]
+        [OpenApiOperation(operationId: "GetNumberOfTweetsFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         public async Task GetNumberOfTweetsFn(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
@@ -98,7 +98,7 @@ namespace Blog.Func.Services
         }
 
         [FunctionName("GetTwitterFollowers")]
-        [OpenApiOperation(operationId: "GetTwitterFollowersFn", tags: new[] { "name" })]
+        [OpenApiOperation(operationId: "GetTwitterFollowersFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         public async Task GetTwitterFollowersFn(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
@@ -108,7 +108,7 @@ namespace Blog.Func.Services
         }
 
         [FunctionName("GetTwitterFollowing")]
-        [OpenApiOperation(operationId: "GetTwitterFollowingFn", tags: new[] { "name" })]
+        [OpenApiOperation(operationId: "GetTwitterFollowingFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         public async Task GetTwitterFollowingFn(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
