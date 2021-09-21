@@ -235,3 +235,10 @@ blockquote.ltag__twitter-tweet .ltag__twitter-tweet__actions {
 .highlight__panel.js-actions-panel {
     display: none
 }
+
+@media (prefers-color-scheme: dark) {
+    body {
+        color: #fff;
+        background-color: #101010;
+    }
+}
