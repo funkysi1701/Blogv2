@@ -51,7 +51,7 @@ namespace Blog.Func
             var github = GitHub();
             try
             {
-                var events = await github.Activity.Events.GetAllUserPerformed("funkysi1701");
+                var events = await github.Activity.Events.GetAllUserPerformed(Configuration.GetValue<string>("Username1"));
                 var today = events.Where(x => x.Type == "PushEvent" && x.CreatedAt > DateTime.Now.Date).ToList();
                 var sofar = await Chart.GetAll();
                 sofar = sofar.Where(x => x.Date != null && x.Type == 8 && x.Date < DateTime.Now.Date).OrderBy(y => y.Date).ToList();
@@ -68,8 +68,8 @@ namespace Blog.Func
 
         public GitHubClient GitHub()
         {
-            var github = new GitHubClient(new ProductHeaderValue("funkysi1701"));
-            var tokenAuth = new Credentials("55ba1de1d50accfebfd9c421e9156564712c4147");
+            var github = new GitHubClient(new ProductHeaderValue(Configuration.GetValue<string>("Username1")));
+            var tokenAuth = new Credentials(Configuration.GetValue<string>("GitHubToken"));
             github.Credentials = tokenAuth;
             return github;
         }
