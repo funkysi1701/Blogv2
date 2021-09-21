@@ -1,4 +1,5 @@
 ﻿using Blog.Func;
+using Blog.Func.Services;
 using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,7 @@ namespace Blog.Func
                     .Build();
             });
             builder.Services.AddScoped<GithubService>();
+            builder.Services.AddScoped<TwitterService>();
         }
     }
 }

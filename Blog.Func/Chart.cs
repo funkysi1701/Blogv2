@@ -1,4 +1,5 @@
 using Blog.Core;
+using Blog.Func.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Cosmos;
@@ -19,12 +20,10 @@ namespace Blog.Func
     public class Chart
     {
         private readonly Container _container;
-        private readonly GithubService GithubService;
 
-        public Chart(CosmosClient cosmosClient, GithubService githubService)
+        public Chart(CosmosClient cosmosClient)
         {
             var _cosmosClient = cosmosClient;
-            GithubService = githubService;
             var _database = _cosmosClient.GetDatabase("Metrics");
             _container = _database.GetContainer("Data");
         }
@@ -92,51 +91,6 @@ namespace Blog.Func
         public async Task<List<Metric>> GetAll()
         {
             return _container.GetItemLinqQueryable<Metric>(true).ToList();
-        }
-
-        [FunctionName("GetCommits")]
-        [OpenApiOperation(operationId: "GetCommits", tags: new[] { "name" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetCommits([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-    ILogger log)
-        {
-            await GithubService.GetCommits();
-        }
-
-        [FunctionName("GetGitHubStars")]
-        [OpenApiOperation(operationId: "GetGitHubStars", tags: new[] { "name" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetGitHubStars([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-ILogger log)
-        {
-            await GithubService.GetGitHubStars();
-        }
-
-        [FunctionName("GetGitHubRepo")]
-        [OpenApiOperation(operationId: "GetGitHubRepo", tags: new[] { "name" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetGitHubRepo([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-ILogger log)
-        {
-            await GithubService.GetGitHubRepo();
-        }
-
-        [FunctionName("GetGitHubFollowers")]
-        [OpenApiOperation(operationId: "GetGitHubFollowers", tags: new[] { "name" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetGitHubFollowers([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-ILogger log)
-        {
-            await GithubService.GetGitHubFollowers();
-        }
-
-        [FunctionName("GetGitHubFollowing")]
-        [OpenApiOperation(operationId: "GetGitHubFollowing", tags: new[] { "name" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetGitHubFollowing([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-ILogger log)
-        {
-            await GithubService.GetGitHubFollowing();
         }
 
         public IList<IList<ChartView>> GetChartDetails(MetricType type, MyChartType day, int OffSet, string username)

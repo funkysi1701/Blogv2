@@ -19,7 +19,6 @@ namespace Blog
             builder.Services.AddScoped<BlogService>();
 
             builder.Services.AddScoped<DevToService>();
-            builder.Services.AddScoped<TwitterService>();
             //builder.Services.AddScoped<PowerService>();
             //builder.Services.AddHttpClient<IOctopusEnergyClient, OctopusEnergyClient>()
             //    .ConfigurePrimaryHttpMessageHandler(h => new HttpClientHandler

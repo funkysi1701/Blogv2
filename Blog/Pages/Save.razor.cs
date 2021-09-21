@@ -13,7 +13,6 @@ namespace Blog.Pages
         [Inject] private DevToService DevToService { get; set; }
 
         [Inject] private BlogService BlogService { get; set; }
-        [Inject] private TwitterService TwitterService { get; set; }
 
         //[Inject] private PowerService PowerService { get; set; }
         [Inject] private NavigationManager UriHelper { get; set; }
@@ -26,15 +25,16 @@ namespace Blog.Pages
         private async Task Save()
         {
             await BlogService.GetCommits();
-
-            //await TwitterService.GetTwitterFav();
             await BlogService.GetGitHubStars();
             await BlogService.GetGitHubRepo();
-            //await TwitterService.GetTwitterFollowers();
-            //await TwitterService.GetTwitterFollowing();
-            //await TwitterService.GetNumberOfTweets();
             await BlogService.GetGitHubFollowers();
             await BlogService.GetGitHubFollowing();
+
+            await BlogService.GetTwitterFav();
+            await BlogService.GetTwitterFollowers();
+            await BlogService.GetTwitterFollowing();
+            await BlogService.GetNumberOfTweets();
+
             //await DevToService.GetDevTo();
             var r = new Random();
             var rnd = r.Next(2);

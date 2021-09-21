@@ -85,5 +85,25 @@ namespace Blog.Data.Services
         {
             await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGitHubFollowing"));
         }
+
+        public async Task GetTwitterFav()
+        {
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetTwitterFav"));
+        }
+
+        public async Task GetTwitterFollowers()
+        {
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetTwitterFollowers"));
+        }
+
+        public async Task GetTwitterFollowing()
+        {
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetTwitterFollowing"));
+        }
+
+        public async Task GetNumberOfTweets()
+        {
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetNumberOfTweets"));
+        }
     }
 }
