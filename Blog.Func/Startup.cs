@@ -1,9 +1,12 @@
 ﻿using Blog.Func;
+using Blog.Func.Services;
+using ImpSoft.OctopusEnergy.Api;
 using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
+using System.Net.Http;
 
 [assembly: FunctionsStartup(typeof(Startup))]
 
@@ -26,6 +29,15 @@ namespace Blog.Func
                     .WithApplicationRegion("UK South")
                     .Build();
             });
+            builder.Services.AddScoped<GithubService>();
+            builder.Services.AddScoped<TwitterService>();
+            builder.Services.AddScoped<DevToService>();
+            builder.Services.AddScoped<PowerService>();
+            builder.Services.AddHttpClient<IOctopusEnergyClient, OctopusEnergyClient>()
+                .ConfigurePrimaryHttpMessageHandler(h => new HttpClientHandler
+                {
+                    AutomaticDecompression = System.Net.DecompressionMethods.All
+                });
         }
     }
 }

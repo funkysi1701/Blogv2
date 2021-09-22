@@ -20,6 +20,9 @@ namespace Blog.Pages
         [Parameter]
         public MetricType Type { get; set; } = 0;
 
+        [Parameter]
+        public string Username { get; set; } = "funkysi1701";
+
         protected string Title;
         protected bool LoadCompleteH = false;
         protected bool LoadCompleteD = false;
@@ -39,6 +42,10 @@ namespace Blog.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            if (string.IsNullOrEmpty(Username))
+            {
+                Username = "funkysi1701";
+            }
             await Load();
         }
 
@@ -47,9 +54,9 @@ namespace Blog.Pages
             StateHasChanged();
         }
 
-        protected async Task LoadHourly()
+        protected async Task LoadHourly(string Username)
         {
-            IList<IList<ChartView>> hourlyChart = await BlogService.GetChart((int)Type, (int)MyChartType.Hourly, OffSet);
+            IList<IList<ChartView>> hourlyChart = await BlogService.GetChart((int)Type, (int)MyChartType.Hourly, OffSet, Username);
             foreach (var subitem in hourlyChart[0].OrderBy(x => x.Date))
             {
                 if (subitem.Total.HasValue)
@@ -70,9 +77,9 @@ namespace Blog.Pages
             LoadCompleteH = true;
         }
 
-        protected async Task LoadDaily()
+        protected async Task LoadDaily(string Username)
         {
-            IList<IList<ChartView>> dailyChart = await BlogService.GetChart((int)Type, (int)MyChartType.Daily, OffSet);
+            IList<IList<ChartView>> dailyChart = await BlogService.GetChart((int)Type, (int)MyChartType.Daily, OffSet, Username);
             if (Type == MetricType.Gas || Type == MetricType.Electricity)
             {
                 var result =
@@ -152,9 +159,9 @@ namespace Blog.Pages
             LoadCompleteD = true;
         }
 
-        protected async Task LoadMonthly()
+        protected async Task LoadMonthly(string Username)
         {
-            IList<IList<ChartView>> monthlyChart = await BlogService.GetChart((int)Type, (int)MyChartType.Monthly, OffSet);
+            IList<IList<ChartView>> monthlyChart = await BlogService.GetChart((int)Type, (int)MyChartType.Monthly, OffSet, Username);
             if (Type == MetricType.Gas || Type == MetricType.Electricity)
             {
                 var result =
@@ -202,11 +209,11 @@ namespace Blog.Pages
         {
             Title = GetEnumDescription(Type);
 
-            await LoadHourly();
+            await LoadHourly(Username);
 
-            await LoadDaily();
+            await LoadDaily(Username);
 
-            await LoadMonthly();
+            await LoadMonthly(Username);
         }
 
         public static string GetEnumDescription(Enum value)
