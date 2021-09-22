@@ -23,7 +23,7 @@ namespace Blog.Func.Services
         public DevToService(IConfiguration configuration, CosmosClient cosmosClient)
         {
             Configuration = configuration;
-            Chart = new Chart(cosmosClient);
+            Chart = new Chart(cosmosClient, configuration);
             users = new List<string>
             {
                 Configuration.GetValue<string>("Username1")

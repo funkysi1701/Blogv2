@@ -26,7 +26,7 @@ namespace Blog.Func.Services
         public PowerService(IConfiguration configuration, CosmosClient cosmosClient, IOctopusEnergyClient client)
         {
             Configuration = configuration;
-            Chart = new Chart(cosmosClient);
+            Chart = new Chart(cosmosClient, configuration);
             Client = client;
             Key = Configuration.GetValue<string>("OctopusKey");
         }
@@ -69,7 +69,7 @@ namespace Blog.Func.Services
 
         public async Task CheckConsumption(int Id, IEnumerable<Consumption> consumption)
         {
-            var exist = await Chart.Get(Id);
+            var exist = Chart.Get(Id);
             foreach (var item in consumption)
             {
                 if (exist.Any(x => x.Date.Value == item.Start.UtcDateTime.Date))

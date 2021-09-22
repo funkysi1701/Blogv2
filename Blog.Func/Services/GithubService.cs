@@ -24,7 +24,7 @@ namespace Blog.Func.Services
         public GithubService(IConfiguration configuration, CosmosClient cosmosClient)
         {
             Configuration = configuration;
-            Chart = new Chart(cosmosClient);
+            Chart = new Chart(cosmosClient, configuration);
             users = new List<string>
             {
                 Configuration.GetValue<string>("Username1"),
@@ -87,7 +87,7 @@ namespace Blog.Func.Services
             {
                 var events = await github.Activity.Events.GetAllUserPerformed(username);
                 var today = events.Where(x => x.Type == "PushEvent" && x.CreatedAt > DateTime.Now.Date).ToList();
-                var sofar = await Chart.GetAll();
+                var sofar = Chart.GetAll();
                 sofar = sofar.Where(x => x.Date != null && x.Type == 8 && x.Date < DateTime.Now.Date).OrderBy(y => y.Date).ToList();
                 if (sofar.Count == 0)
                 {

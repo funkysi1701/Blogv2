@@ -6,6 +6,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
@@ -20,11 +21,11 @@ namespace Blog.Func
     {
         private readonly Container _container;
 
-        public Chart(CosmosClient cosmosClient)
+        public Chart(CosmosClient cosmosClient, IConfiguration Configuration)
         {
             var _cosmosClient = cosmosClient;
-            var _database = _cosmosClient.GetDatabase("Metrics");
-            _container = _database.GetContainer("Data");
+            var _database = _cosmosClient.GetDatabase(Configuration.GetValue<string>("DatabaseName"));
+            _container = _database.GetContainer(Configuration.GetValue<string>("ContainerName"));
         }
 
         public async Task<IActionResult> SaveData(decimal value, int type, string Username)
@@ -95,14 +96,14 @@ namespace Blog.Func
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         [OpenApiParameter(name: "type", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **type** parameter")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(List<Metric>), Description = "The OK response")]
-        public async Task<List<Metric>> GetFn([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+        public List<Metric> GetFn([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             int type = int.Parse(req.Query["type"]);
-            return await Get(type);
+            return Get(type);
         }
 
-        public async Task<List<Metric>> Get(int type)
+        public List<Metric> Get(int type)
         {
             return _container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type == type).ToList();
         }
@@ -111,13 +112,13 @@ namespace Blog.Func
         [OpenApiOperation(operationId: "GetAllFn", tags: new[] { "name" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(List<Metric>), Description = "The OK response")]
-        public async Task<List<Metric>> GetAllFn([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+        public List<Metric> GetAllFn([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            return await GetAll();
+            return GetAll();
         }
 
-        public async Task<List<Metric>> GetAll()
+        public List<Metric> GetAll()
         {
             return _container.GetItemLinqQueryable<Metric>(true).ToList();
         }

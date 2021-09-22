@@ -25,7 +25,7 @@ namespace Blog.Func.Services
         public TwitterService(IConfiguration configuration, CosmosClient cosmosClient)
         {
             Configuration = configuration;
-            Chart = new Chart(cosmosClient);
+            Chart = new Chart(cosmosClient, configuration);
             TwitterClient = new TwitterClient(configuration.GetValue<string>("TWConsumerKey"), configuration.GetValue<string>("TWConsumerSecret"), configuration.GetValue<string>("TWAccessToken"), configuration.GetValue<string>("TWAccessSecret"));
             users = new List<string>
             {
