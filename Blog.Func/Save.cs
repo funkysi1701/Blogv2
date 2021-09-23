@@ -6,7 +6,7 @@ using System.Net.Http;
 
 namespace Blog.Func
 {
-    public class Save
+    public static class Save
     {
         [FunctionName("SaveData")]
         public static void Run([TimerTrigger("0 59 * * * *")] TimerInfo myTimer, ILogger log, ExecutionContext context)

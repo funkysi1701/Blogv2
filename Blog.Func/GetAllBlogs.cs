@@ -38,7 +38,7 @@ namespace Blog.Func
             return new OkObjectResult(posts);
         }
 
-        public async Task<List<BlogPosts>> GetAll(IConfiguration config)
+        public static async Task<List<BlogPosts>> GetAll(IConfiguration config)
         {
             var Client = new HttpClient();
             Client.DefaultRequestHeaders.Add("api-key", config.GetValue<string>("DEVTOAPI"));
