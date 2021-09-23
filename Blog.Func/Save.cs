@@ -1,25 +1,27 @@
-﻿using Microsoft.Azure.WebJobs;
-using Microsoft.Extensions.Configuration;
+﻿using Blog.Func.Services;
+using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Blog.Func
 {
-    public static class Save
+    public class Save
     {
-        [FunctionName("SaveData")]
-        public static void Run([TimerTrigger("0 59 * * * *")] TimerInfo myTimer, ILogger log, ExecutionContext context)
+        private readonly TwitterService twitterService;
+        public Save(TwitterService twitterService)
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(context.FunctionAppDirectory)
-                .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables()
-                .Build();
+            this.twitterService = twitterService;
+        }
+
+        [FunctionName("SaveData")]
+        public async Task Run([TimerTrigger("0 59 * * * *")] TimerInfo myTimer, ILogger log, ExecutionContext context)
+        {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
-            var client = new HttpClient();
-            log.LogInformation($"URL: {config.GetValue<string>("URL")}");
-            client.GetAsync(config.GetValue<string>("URL"));
+            await twitterService.GetTwitterFav(log);
+            await twitterService.GetTwitterFollowers(log);
+            await twitterService.GetTwitterFollowing(log);
+            await twitterService.GetNumberOfTweets(log);
         }
     }
 }
