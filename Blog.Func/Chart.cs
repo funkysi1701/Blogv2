@@ -87,8 +87,17 @@ namespace Blog.Func
             MyChartType day = (MyChartType)int.Parse(req.Query["day"]);
             int OffSet = int.Parse(req.Query["offset"]);
             string username = req.Query["username"];
-            var result = GetChartDetails(type, day, OffSet, username);
-            return new OkObjectResult(result);
+            try
+            {
+                var result = GetChartDetails(type, day, OffSet, username);
+                return new OkObjectResult(result);
+            }
+            catch (Exception e)
+            {
+                log.LogError($"Exception {e.Message}");
+                return new BadRequestResult();
+            }
+
         }
 
         [FunctionName("Get")]
