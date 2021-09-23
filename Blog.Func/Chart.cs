@@ -70,7 +70,7 @@ namespace Blog.Func
         }
 
         [FunctionName("GetChart")]
-        [OpenApiOperation(operationId: "GetChart", tags: new[] { "name" })]
+        [OpenApiOperation(operationId: "GetChart", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         [OpenApiParameter(name: "type", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **type** parameter")]
         [OpenApiParameter(name: "day", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **day** parameter")]
@@ -92,7 +92,7 @@ namespace Blog.Func
         }
 
         [FunctionName("Get")]
-        [OpenApiOperation(operationId: "GetFn", tags: new[] { "name" })]
+        [OpenApiOperation(operationId: "GetFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         [OpenApiParameter(name: "type", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **type** parameter")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(List<Metric>), Description = "The OK response")]
@@ -109,7 +109,7 @@ namespace Blog.Func
         }
 
         [FunctionName("GetAll")]
-        [OpenApiOperation(operationId: "GetAllFn", tags: new[] { "name" })]
+        [OpenApiOperation(operationId: "GetAllFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(List<Metric>), Description = "The OK response")]
         public List<Metric> GetAllFn([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
