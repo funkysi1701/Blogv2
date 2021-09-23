@@ -101,7 +101,7 @@ namespace Blog.Func.Services
         [OpenApiOperation(operationId: "GetCommitsFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         public async Task GetCommitsFn(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             await GetCommits();
@@ -111,7 +111,7 @@ namespace Blog.Func.Services
         [OpenApiOperation(operationId: "GetGitHubStarsFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         public async Task GetGitHubStarsFn(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             await GetGitHubStars();
@@ -121,7 +121,7 @@ namespace Blog.Func.Services
         [OpenApiOperation(operationId: "GetGitHubRepoFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         public async Task GetGitHubRepoFn(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             await GetGitHubRepo();
@@ -131,7 +131,7 @@ namespace Blog.Func.Services
         [OpenApiOperation(operationId: "GetGitHubFollowersFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         public async Task GetGitHubFollowersFn(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             await GetGitHubFollowers();
@@ -141,7 +141,7 @@ namespace Blog.Func.Services
         [OpenApiOperation(operationId: "GetGitHubFollowingFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         public async Task GetGitHubFollowingFn(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             await GetGitHubFollowing();

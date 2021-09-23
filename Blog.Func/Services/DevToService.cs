@@ -57,7 +57,7 @@ namespace Blog.Func.Services
         [OpenApiOperation(operationId: "GetDevToFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         public async Task GetDevToFn(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             await GetDevTo();

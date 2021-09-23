@@ -81,7 +81,7 @@ namespace Blog.Func.Services
         [OpenApiOperation(operationId: "GetTwitterFavFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         public async Task GetTwitterFavFn(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             await GetTwitterFav(log);
@@ -91,7 +91,7 @@ namespace Blog.Func.Services
         [OpenApiOperation(operationId: "GetNumberOfTweetsFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         public async Task GetNumberOfTweetsFn(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             await GetNumberOfTweets(log);
@@ -101,7 +101,7 @@ namespace Blog.Func.Services
         [OpenApiOperation(operationId: "GetTwitterFollowersFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         public async Task GetTwitterFollowersFn(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             await GetTwitterFollowers(log);
@@ -111,7 +111,7 @@ namespace Blog.Func.Services
         [OpenApiOperation(operationId: "GetTwitterFollowingFn", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         public async Task GetTwitterFollowingFn(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             await GetTwitterFollowing(log);
