@@ -30,6 +30,26 @@ steps:
     projects: 'Blog.sln'
     arguments: '--configuration $(BuildConfiguration)'
 
+- task: DotNetCoreCLI@2
+  displayName: 'Build Func'
+  inputs:
+    command: 'build'
+    projects: 'Blog.Func/Blog.Func.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publish'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'Blog.Func/Blog.Func.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory) /p:SourceRevisionId=$(Build.SourceVersion)'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)/a/Blog.Func.zip'
+    artifact: 'func'
+    publishLocation: 'pipeline'    
 - task: SonarCloudAnalyze@1
 
 - task: SonarCloudPublish@1
