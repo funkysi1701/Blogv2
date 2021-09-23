@@ -11,7 +11,6 @@ namespace Blog.Data.Services
     public class BlogService
     {
         private HttpClient Client { get; set; }
-        private string APIKEY { get; set; }
 
         public BlogService(HttpClient httpClient, IConfiguration config)
         {
@@ -20,12 +19,11 @@ namespace Blog.Data.Services
             {
                 Client.BaseAddress = new Uri(config.GetValue<string>("BaseURL"));
             }
-            APIKEY = config.GetValue<string>("APIKEY");
         }
 
         public async Task<List<BlogPosts>> GetBlogsAsync()
         {
-            return await Client.GetFromJsonAsync<List<BlogPosts>>(new Uri($"{Client.BaseAddress}api/GetAllBlogs?code={APIKEY}"));
+            return await Client.GetFromJsonAsync<List<BlogPosts>>(new Uri($"{Client.BaseAddress}api/GetAllBlogs"));
         }
 
         public async Task<BlogPostsSingle> GetBlogPostAsync(int id)
@@ -35,92 +33,92 @@ namespace Blog.Data.Services
 
         public async Task<IList<IList<ChartView>>> GetChart(int type, int day, int offSet, string username)
         {
-            return await Client.GetFromJsonAsync<IList<IList<ChartView>>>(new Uri($"{Client.BaseAddress}api/GetChart?code={APIKEY}&type={type}&day={day}&offset={offSet}&username={username}"));
+            return await Client.GetFromJsonAsync<IList<IList<ChartView>>>(new Uri($"{Client.BaseAddress}api/GetChart?type={type}&day={day}&offset={offSet}&username={username}"));
         }
 
         public async Task<List<Metric>> Get(int type)
         {
-            return await Client.GetFromJsonAsync<List<Metric>>(new Uri($"{Client.BaseAddress}api/Get?code={APIKEY}&type={type}"));
+            return await Client.GetFromJsonAsync<List<Metric>>(new Uri($"{Client.BaseAddress}api/Get?type={type}"));
         }
 
         public async Task<List<Metric>> GetAll()
         {
-            return await Client.GetFromJsonAsync<List<Metric>>(new Uri($"{Client.BaseAddress}api/GetAll?code={APIKEY}"));
+            return await Client.GetFromJsonAsync<List<Metric>>(new Uri($"{Client.BaseAddress}api/GetAll"));
         }
 
         public async Task SaveData(decimal value, int type)
         {
-            await Client.PostAsync(new Uri($"{Client.BaseAddress}api/SaveData?code={APIKEY}&type={type}&value={value}"), null);
+            await Client.PostAsync(new Uri($"{Client.BaseAddress}api/SaveData?type={type}&value={value}"), null);
         }
 
         public async Task SaveData(decimal value, int type, DateTime To)
         {
-            await Client.PostAsync(new Uri($"{Client.BaseAddress}api/SaveData?code={APIKEY}&type={type}&value={value}&date={To}"), null);
+            await Client.PostAsync(new Uri($"{Client.BaseAddress}api/SaveData?type={type}&value={value}&date={To}"), null);
         }
 
         public async Task Delete(int type, DateTime dt)
         {
-            await Client.DeleteAsync(new Uri($"{Client.BaseAddress}api/Delete?code={APIKEY}&type={type}&date={dt}"));
+            await Client.DeleteAsync(new Uri($"{Client.BaseAddress}api/Delete?type={type}&date={dt}"));
         }
 
         public async Task GetCommits()
         {
-            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetCommits?code={APIKEY}"));
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetCommits"));
         }
 
         public async Task GetGitHubStars()
         {
-            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGitHubStars?code={APIKEY}"));
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGitHubStars"));
         }
 
         public async Task GetGitHubRepo()
         {
-            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGitHubRepo?code={APIKEY}"));
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGitHubRepo"));
         }
 
         public async Task GetGitHubFollowers()
         {
-            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGitHubFollowers?code={APIKEY}"));
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGitHubFollowers"));
         }
 
         public async Task GetGitHubFollowing()
         {
-            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGitHubFollowing?code={APIKEY}"));
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGitHubFollowing"));
         }
 
         public async Task GetTwitterFav()
         {
-            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetTwitterFav?code={APIKEY}"));
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetTwitterFav"));
         }
 
         public async Task GetTwitterFollowers()
         {
-            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetTwitterFollowers?code={APIKEY}"));
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetTwitterFollowers"));
         }
 
         public async Task GetTwitterFollowing()
         {
-            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetTwitterFollowing?code={APIKEY}"));
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetTwitterFollowing"));
         }
 
         public async Task GetNumberOfTweets()
         {
-            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetNumberOfTweets?code={APIKEY}"));
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetNumberOfTweets"));
         }
 
         public async Task GetDevTo()
         {
-            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetDevTo?code={APIKEY}"));
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetDevTo"));
         }
 
         public async Task GetElec()
         {
-            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetElec?code={APIKEY}"));
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetElec"));
         }
 
         public async Task GetGas()
         {
-            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGas?code={APIKEY}"));
+            await Client.GetAsync(new Uri($"{Client.BaseAddress}api/GetGas"));
         }
     }
 }
