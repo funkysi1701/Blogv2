@@ -210,10 +210,6 @@ namespace Blog.Pages
             Title = GetEnumDescription(Type);
 
             await LoadHourly(Username);
-
-            await LoadDaily(Username);
-
-            await LoadMonthly(Username);
         }
 
         public static string GetEnumDescription(Enum value)
