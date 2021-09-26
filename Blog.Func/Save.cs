@@ -21,28 +21,28 @@ namespace Blog.Func
         }
 
         [FunctionName("SaveData1")]
-        public async Task Run1([TimerTrigger("0 59 1,7,13,19 * * *",RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
+        public async Task Run1([TimerTrigger("0 59 * * * *",RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await twitterService.GetTwitterFav(log);
         }
 
         [FunctionName("SaveData2")]
-        public async Task Run2([TimerTrigger("0 59 2,8,14,20 * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
+        public async Task Run2([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await twitterService.GetTwitterFollowers(log);
         }
 
         [FunctionName("SaveData3")]
-        public async Task Run3([TimerTrigger("0 59 3,9,15,21 * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
+        public async Task Run3([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await twitterService.GetTwitterFollowing(log);
         }
 
         [FunctionName("SaveData4")]
-        public async Task Run4([TimerTrigger("0 59 4,10,16,22 * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
+        public async Task Run4([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await twitterService.GetNumberOfTweets(log);
@@ -98,7 +98,7 @@ namespace Blog.Func
         //}
 
         [FunctionName("SaveData12")]
-        public async Task Run12([TimerTrigger("0 59 5,6,11,12,17,18,23,0 * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
+        public async Task Run12([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await devToService.GetDevTo();
