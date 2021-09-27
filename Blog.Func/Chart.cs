@@ -84,9 +84,13 @@ namespace Blog.Func
             log.LogInformation("GetChart");
 
             MetricType type = (MetricType)int.Parse(req.Query["type"]);
+            log.LogInformation(type.ToString());
             MyChartType day = (MyChartType)int.Parse(req.Query["day"]);
+            log.LogInformation(day.ToString());
             int OffSet = int.Parse(req.Query["offset"]);
+            log.LogInformation(OffSet.ToString());
             string username = req.Query["username"];
+            log.LogInformation(username);
             try
             {
                 var result = GetChartDetails(type, day, OffSet, username);
