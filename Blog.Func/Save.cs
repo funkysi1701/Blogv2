@@ -48,19 +48,19 @@ namespace Blog.Func
             await twitterService.GetNumberOfTweets(log);
         }
 
-        //[FunctionName("SaveData5")]
-        //public async Task Run5([TimerTrigger("0 59 5,11,17,23 * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
-        //{
-        //    log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
-        //    await powerService.GetGas();
-        //}
+        [FunctionName("SaveData5")]
+        public async Task Run5([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
+        {
+            log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
+            await powerService.GetGas();
+        }
 
-        //[FunctionName("SaveData6")]
-        //public async Task Run6([TimerTrigger("0 59 0,6,12,18 * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
-        //{
-        //    log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
-        //    await powerService.GetElec();
-        //}
+        [FunctionName("SaveData6")]
+        public async Task Run6([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
+        {
+            log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
+            await powerService.GetElec();
+        }
 
         //[FunctionName("SaveData7")]
         //public async Task Run7([TimerTrigger("0 59 1,7,13,19 * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
