@@ -23,7 +23,7 @@ namespace Blog.Func
                 .Build();
             builder.Services.AddSingleton((s) =>
             {
-                CosmosClientBuilder cosmosClientBuilder = new(config.GetValue<string>("CosmosDBString"));
+                CosmosClientBuilder cosmosClientBuilder = new CosmosClientBuilder(config.GetValue<string>("CosmosDBString"));
 
                 return cosmosClientBuilder.WithConnectionModeDirect()
                     .WithApplicationRegion("UK South")
