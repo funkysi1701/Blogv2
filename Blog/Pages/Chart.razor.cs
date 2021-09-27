@@ -56,34 +56,27 @@ namespace Blog.Pages
 
         protected async Task LoadHourly(string Username)
         {
-            try
+            IList<IList<ChartView>> hourlyChart = await BlogService.GetChart((int)Type, (int)MyChartType.Hourly, OffSet, Username);
+            foreach (var subitem in hourlyChart[0].OrderBy(x => x.Date))
             {
-                IList<IList<ChartView>> hourlyChart = await BlogService.GetChart((int)Type, (int)MyChartType.Hourly, OffSet, Username);
-                foreach (var subitem in hourlyChart[0].OrderBy(x => x.Date))
+                if (subitem.Total.HasValue)
                 {
-                    if (subitem.Total.HasValue)
-                    {
-                        hourlyLabel.Add(subitem.Date);
-                        hourlyData.Add(subitem.Total.Value);
-                    }
-                }
-
-                foreach (var subitem in hourlyChart[1].OrderBy(x => x.Date))
-                {
-                    if (subitem.Total.HasValue)
-                    {
-                        hourlyLabel.Add(subitem.Date);
-                        hourlyPrevData.Add(subitem.Total.Value);
-                    }
-                }
-                if(hourlyData.Count > 0)
-                {
-                    LoadCompleteH = true;
+                    hourlyLabel.Add(subitem.Date);
+                    hourlyData.Add(subitem.Total.Value);
                 }
             }
-            catch
-            {
 
+            foreach (var subitem in hourlyChart[1].OrderBy(x => x.Date))
+            {
+                if (subitem.Total.HasValue)
+                {
+                    hourlyLabel.Add(subitem.Date);
+                    hourlyPrevData.Add(subitem.Total.Value);
+                }
+            }
+            if(hourlyData.Count > 0)
+            {
+                LoadCompleteH = true;
             }
         }
 
