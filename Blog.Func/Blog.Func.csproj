@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <AzureFunctionsVersion>v4</AzureFunctionsVersion>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AzureFunctionsVersion>v3</AzureFunctionsVersion>
     <_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ImpSoft.OctopusEnergy.Api" Version="3.0.1" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.OpenApi" Version="0.8.1-preview" />
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="6.0.0-rc.1.21452.10" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0-rc.1.21451.13" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0-rc.1.21451.13" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.0.0-preview2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="3.1.19" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.19" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.19" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.13" />
     <PackageReference Include="Octokit" Version="0.50.0" />
-    <PackageReference Include="System.Net.Http.Json" Version="6.0.0-rc.1.21451.13" />
+    <PackageReference Include="System.Net.Http.Json" Version="3.2.1" />
     <PackageReference Include="TweetinviAPI" Version="5.0.4" />
   </ItemGroup>
   <ItemGroup>
