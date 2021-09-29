@@ -20,84 +20,84 @@ namespace Blog.Func
             this.devToService = devToService;
         }
 
-        [FunctionName("SaveData1")]
+        [FunctionName("SaveTwitterFav")]
         public async Task Run1([TimerTrigger("0 59 * * * *",RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await twitterService.GetTwitterFav(log);
         }
 
-        [FunctionName("SaveData2")]
+        [FunctionName("SaveTwitterFollowers")]
         public async Task Run2([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await twitterService.GetTwitterFollowers(log);
         }
 
-        [FunctionName("SaveData3")]
+        [FunctionName("SaveTwitterFollowing")]
         public async Task Run3([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await twitterService.GetTwitterFollowing(log);
         }
 
-        [FunctionName("SaveData4")]
+        [FunctionName("SaveNumberOfTweets")]
         public async Task Run4([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await twitterService.GetNumberOfTweets(log);
         }
 
-        [FunctionName("SaveData5")]
+        [FunctionName("SaveGas")]
         public async Task Run5([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await powerService.GetGas();
         }
 
-        [FunctionName("SaveData6")]
+        [FunctionName("SaveElec")]
         public async Task Run6([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await powerService.GetElec();
         }
 
-        [FunctionName("SaveData7")]
+        [FunctionName("SaveCommits")]
         public async Task Run7([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await githubService.GetCommits();
         }
 
-        [FunctionName("SaveData8")]
+        [FunctionName("SaveGitHubFollowers")]
         public async Task Run8([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await githubService.GetGitHubFollowers();
         }
 
-        [FunctionName("SaveData9")]
+        [FunctionName("SaveGitHubFollowing")]
         public async Task Run9([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await githubService.GetGitHubFollowing();
         }
 
-        [FunctionName("SaveData10")]
+        [FunctionName("SaveGitHubRepo")]
         public async Task Run10([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await githubService.GetGitHubRepo();
         }
 
-        [FunctionName("SaveData11")]
+        [FunctionName("SaveGitHubStars")]
         public async Task Run11([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await githubService.GetGitHubStars();
         }
 
-        [FunctionName("SaveData12")]
+        [FunctionName("SaveDevTo")]
         public async Task Run12([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");

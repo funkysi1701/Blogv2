@@ -28,6 +28,97 @@ namespace Blog.Func
             _container = _database.GetContainer(Configuration.GetValue<string>("ContainerName"));
         }
 
+        [FunctionName("GetChart")]
+        [OpenApiOperation(operationId: "GetChart", tags: new[] { "api" })]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        [OpenApiParameter(name: "type", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **type** parameter")]
+        [OpenApiParameter(name: "day", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **day** parameter")]
+        [OpenApiParameter(name: "offset", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **offset** parameter")]
+        [OpenApiParameter(name: "username", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **username** parameter")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IList<IList<ChartView>>), Description = "The OK response")]
+        public IActionResult GetChart(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
+            ILogger log)
+        {
+            log.LogInformation("GetChart");
+
+            MetricType type = (MetricType)int.Parse(req.Query["type"]);
+            log.LogInformation(type.ToString());
+            MyChartType day = (MyChartType)int.Parse(req.Query["day"]);
+            log.LogInformation(day.ToString());
+            int OffSet = int.Parse(req.Query["offset"]);
+            log.LogInformation(OffSet.ToString());
+            string username = req.Query["username"];
+            log.LogInformation(username);
+            try
+            {
+                var result = GetChartDetails(type, day, OffSet, username);
+                return new OkObjectResult(result);
+            }
+            catch (Exception e)
+            {
+                log.LogError($"Exception {e.Message}");
+                return new BadRequestResult();
+            }
+
+        }
+
+        [FunctionName("Get")]
+        [OpenApiOperation(operationId: "GetFn", tags: new[] { "api" })]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        [OpenApiParameter(name: "type", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **type** parameter")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(List<Metric>), Description = "The OK response")]
+        public List<Metric> GetFn(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
+            ILogger log)
+        {
+            int type = int.Parse(req.Query["type"]);
+            return Get(type);
+        }
+
+        [FunctionName("GetAll")]
+        [OpenApiOperation(operationId: "GetAllFn", tags: new[] { "api" })]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(List<Metric>), Description = "The OK response")]
+        public List<Metric> GetAllFn(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
+            ILogger log)
+        {
+            return GetAll();
+        }
+
+        [FunctionName("Tidy")]
+        public async Task Tidy(
+            [TimerTrigger("0 15 * * * *", RunOnStartup = false)] TimerInfo myTimer, 
+            ILogger log)
+        {
+            log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
+            var listofdates = new List<DateTime?>();
+            var totaln = _container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type == (int)MetricType.Electricity || x.Type == (int)MetricType.Gas).ToList();
+            for (int i = 1; i < 13; i++)
+            {
+                for (int j = 1; j < 32; j++)
+                {
+                    var n = totaln.Where(x => x.Date.Value.Day == j && x.Date.Value.Month == i).ToList();
+                    foreach (var item in n.OrderBy(x => x.Date))
+                    {
+                        if (!listofdates.Contains(item.Date))
+                        {
+                            listofdates.Add(item.Date);
+                            log.LogInformation(item.Date?.ToString("yyyy-MM-dd HH:mm"));
+                            log.LogInformation(item.Value.ToString());
+                            log.LogInformation("###");
+                        }
+                        else
+                        {
+                            await _container.DeleteItemAsync<Metric>(item.id.ToString(), new PartitionKey(item.PartitionKey));
+                        }
+                    }
+                }
+                log.LogInformation($"Completed Month {i}");
+            }
+        }
+
         public async Task<IActionResult> SaveData(decimal value, int type, string Username)
         {
             var m = new Metric
@@ -69,66 +160,9 @@ namespace Blog.Func
             }
         }
 
-        [FunctionName("GetChart")]
-        [OpenApiOperation(operationId: "GetChart", tags: new[] { "api" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiParameter(name: "type", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **type** parameter")]
-        [OpenApiParameter(name: "day", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **day** parameter")]
-        [OpenApiParameter(name: "offset", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **offset** parameter")]
-        [OpenApiParameter(name: "username", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **username** parameter")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IList<IList<ChartView>>), Description = "The OK response")]
-        public IActionResult GetChart(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            log.LogInformation("GetChart");
-
-            MetricType type = (MetricType)int.Parse(req.Query["type"]);
-            log.LogInformation(type.ToString());
-            MyChartType day = (MyChartType)int.Parse(req.Query["day"]);
-            log.LogInformation(day.ToString());
-            int OffSet = int.Parse(req.Query["offset"]);
-            log.LogInformation(OffSet.ToString());
-            string username = req.Query["username"];
-            log.LogInformation(username);
-            try
-            {
-                var result = GetChartDetails(type, day, OffSet, username);
-                return new OkObjectResult(result);
-            }
-            catch (Exception e)
-            {
-                log.LogError($"Exception {e.Message}");
-                return new BadRequestResult();
-            }
-
-        }
-
-        [FunctionName("Get")]
-        [OpenApiOperation(operationId: "GetFn", tags: new[] { "api" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiParameter(name: "type", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **type** parameter")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(List<Metric>), Description = "The OK response")]
-        public List<Metric> GetFn([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            int type = int.Parse(req.Query["type"]);
-            return Get(type);
-        }
-
         public List<Metric> Get(int type)
         {
             return _container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type == type).ToList();
-        }
-
-        [FunctionName("GetAll")]
-        [OpenApiOperation(operationId: "GetAllFn", tags: new[] { "api" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(List<Metric>), Description = "The OK response")]
-        public List<Metric> GetAllFn([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            return GetAll();
         }
 
         public List<Metric> GetAll()
@@ -136,7 +170,7 @@ namespace Blog.Func
             return _container.GetItemLinqQueryable<Metric>(true).ToList();
         }
 
-        public IList<IList<ChartView>> GetChartDetails(MetricType type, MyChartType day, int OffSet, string username)
+        private IList<IList<ChartView>> GetChartDetails(MetricType type, MyChartType day, int OffSet, string username)
         {
             var metrics = _container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type == (int)type && x.Username == username).ToList();
             List<Metric> LiveMetrics;
