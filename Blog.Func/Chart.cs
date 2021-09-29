@@ -94,7 +94,7 @@ namespace Blog.Func
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             var listofdates = new List<DateTime?>();
-            var totaln = _container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type == (int)MetricType.Electricity || x.Type == (int)MetricType.Gas).ToList();
+            var totaln = _container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type >= (int)MetricType.Gas).ToList();
             for (int i = 1; i < 13; i++)
             {
                 for (int j = 1; j < 32; j++)
