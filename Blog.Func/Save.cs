@@ -9,6 +9,7 @@ namespace Blog.Func
     public class Save
     {
         private readonly TwitterService twitterService;
+        private readonly TwitterServiceV2 twitterService;
         private readonly PowerService powerService;
         private readonly GithubService githubService;
         private readonly DevToService devToService;

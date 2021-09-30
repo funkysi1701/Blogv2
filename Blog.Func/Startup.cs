@@ -31,6 +31,7 @@ namespace Blog.Func
             });
             builder.Services.AddScoped<GithubService>();
             builder.Services.AddScoped<TwitterService>();
+            builder.Services.AddScoped<TwitterServiceV2>();
             builder.Services.AddScoped<DevToService>();
             builder.Services.AddScoped<PowerService>();
             builder.Services.AddHttpClient<IOctopusEnergyClient, OctopusEnergyClient>()
