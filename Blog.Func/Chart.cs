@@ -89,7 +89,7 @@ namespace Blog.Func
 
         [FunctionName("Tidy")]
         public async Task Tidy(
-            [TimerTrigger("0 15 * * * *", RunOnStartup = false)] TimerInfo myTimer, 
+            [TimerTrigger("0 15 0 * * *", RunOnStartup = false)] TimerInfo myTimer, 
             ILogger log)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
