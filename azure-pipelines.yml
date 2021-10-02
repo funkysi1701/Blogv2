@@ -23,7 +23,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    version: '5.x'
+    version: '3.x'
     includePreviewVersions: true
 
 - task: UseDotNet@2
