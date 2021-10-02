@@ -20,6 +20,12 @@ steps:
     projectName: 'Blogv2'
     projectVersion: '$(Build.BuildId)'
 
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '6.x'
+    includePreviewVersions: true
+
 - task: DotNetCoreCLI@2
   displayName: 'Build Web'
   inputs:
