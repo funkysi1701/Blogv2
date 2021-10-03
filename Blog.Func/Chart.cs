@@ -93,7 +93,7 @@ namespace Blog.Func
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             var listofdates = new List<DateTime?>();
-            var totaln = _container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type >= (int)MetricType.Gas).ToList();
+            var totaln = _container.GetItemLinqQueryable<Metric>(true, null, new QueryRequestOptions { MaxItemCount = -1 }).Where(x => x.Type >= (int)MetricType.Gas).ToList();
             for (int i = 1; i < 13; i++)
             {
                 for (int j = 1; j < 32; j++)
@@ -152,7 +152,10 @@ namespace Blog.Func
 
         public async Task Delete(int type, DateTime dt)
         {
-            var m = _container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type == type && x.Date == dt).ToList();
+            var m = _container.GetItemLinqQueryable<Metric>(true, null, new QueryRequestOptions
+            {
+                MaxItemCount = -1,
+            }).Where(x => x.Type == type && x.Date == dt).ToList();
             foreach (var item in m)
             {
                 await _container.DeleteItemAsync<Metric>(item.id, new PartitionKey(item.PartitionKey));
@@ -161,17 +164,20 @@ namespace Blog.Func
 
         public List<Metric> Get(int type)
         {
-            return _container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type == type).ToList();
+            return _container.GetItemLinqQueryable<Metric>(true, null, new QueryRequestOptions
+            {
+                MaxItemCount = -1,
+            }).Where(x => x.Type == type).ToList();
         }
 
         public List<Metric> GetAll()
         {
-            return _container.GetItemLinqQueryable<Metric>(true).ToList();
+            return _container.GetItemLinqQueryable<Metric>(true, null, new QueryRequestOptions { MaxItemCount = -1 }).ToList();
         }
 
         private IList<IList<ChartView>> GetChartDetails(MetricType type, MyChartType day, int OffSet, string username)
         {
-            var metrics = _container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type == (int)type && x.Username == username).ToList();
+            var metrics = _container.GetItemLinqQueryable<Metric>(true, null, new QueryRequestOptions { MaxItemCount = -1 }).Where(x => x.Type == (int)type && x.Username == username).ToList();
             List<Metric> LiveMetrics;
             List<Metric> PrevMetrics;
             if (type >= MetricType.Gas)
