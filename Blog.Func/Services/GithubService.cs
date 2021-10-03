@@ -1,12 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Azure.Cosmos;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
-using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
+﻿using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -95,56 +88,6 @@ namespace Blog.Func.Services
                 }
                 else await Chart.SaveData(today.Count + sofar.Last().Value.Value, 8, username);
             }
-        }
-
-        [FunctionName("GetCommits")]
-        [OpenApiOperation(operationId: "GetCommitsFn", tags: new[] { "api" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetCommitsFn(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            await GetCommits();
-        }
-
-        [FunctionName("GetGitHubStars")]
-        [OpenApiOperation(operationId: "GetGitHubStarsFn", tags: new[] { "api" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetGitHubStarsFn(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            await GetGitHubStars();
-        }
-
-        [FunctionName("GetGitHubRepo")]
-        [OpenApiOperation(operationId: "GetGitHubRepoFn", tags: new[] { "api" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetGitHubRepoFn(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            await GetGitHubRepo();
-        }
-
-        [FunctionName("GetGitHubFollowers")]
-        [OpenApiOperation(operationId: "GetGitHubFollowersFn", tags: new[] { "api" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetGitHubFollowersFn(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            await GetGitHubFollowers();
-        }
-
-        [FunctionName("GetGitHubFollowing")]
-        [OpenApiOperation(operationId: "GetGitHubFollowingFn", tags: new[] { "api" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetGitHubFollowingFn(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            await GetGitHubFollowing();
         }
     }
 }

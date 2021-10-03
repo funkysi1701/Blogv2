@@ -12,6 +12,7 @@ namespace Blog.Func
         private readonly PowerService powerService;
         private readonly GithubService githubService;
         private readonly DevToService devToService;
+
         public Save(TwitterService twitterService, PowerService powerService, GithubService githubService, DevToService devToService)
         {
             this.twitterService = twitterService;
@@ -21,7 +22,7 @@ namespace Blog.Func
         }
 
         [FunctionName("SaveTwitterFav")]
-        public async Task Run1([TimerTrigger("0 59 * * * *",RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
+        public async Task Run1([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await twitterService.GetTwitterFav(log);

@@ -40,7 +40,6 @@ for (int i = 1; i < 13; i++)
     Console.ReadKey();
 }
 
-
 for (int i = 0; i < (int)MetricType.Electricity + 1; i++)
 {
     var m = container.GetItemLinqQueryable<Metric>(true).Where(x => x.Type == i).ToList();
@@ -59,6 +58,4 @@ for (int i = 0; i < (int)MetricType.Electricity + 1; i++)
             await container.ReplaceItemAsync<Metric>(item, item.id.ToString());
         }
     }
-    
 }
-
