@@ -74,7 +74,7 @@ namespace Blog.Pages
                     hourlyPrevData.Add(subitem.Total.Value);
                 }
             }
-            if(hourlyData.Count > 0)
+            if (hourlyData.Count > 0)
             {
                 LoadCompleteH = true;
             }

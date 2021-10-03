@@ -1,12 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Azure.Cosmos;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
-using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
+﻿using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -77,46 +71,6 @@ namespace Blog.Func.Services
                     log.LogError($"Failed to save for {username} Exception {e.Message}");
                 }
             }
-        }
-
-        [FunctionName("GetTwitterFav")]
-        [OpenApiOperation(operationId: "GetTwitterFavFn", tags: new[] { "api" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetTwitterFavFn(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            await GetTwitterFav(log);
-        }
-
-        [FunctionName("GetNumberOfTweets")]
-        [OpenApiOperation(operationId: "GetNumberOfTweetsFn", tags: new[] { "api" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetNumberOfTweetsFn(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            await GetNumberOfTweets(log);
-        }
-
-        [FunctionName("GetTwitterFollowers")]
-        [OpenApiOperation(operationId: "GetTwitterFollowersFn", tags: new[] { "api" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetTwitterFollowersFn(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            await GetTwitterFollowers(log);
-        }
-
-        [FunctionName("GetTwitterFollowing")]
-        [OpenApiOperation(operationId: "GetTwitterFollowingFn", tags: new[] { "api" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetTwitterFollowingFn(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            await GetTwitterFollowing(log);
         }
     }
 }

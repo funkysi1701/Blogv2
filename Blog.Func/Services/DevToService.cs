@@ -1,12 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Azure.Cosmos;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
-using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
+﻿using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -51,16 +44,6 @@ namespace Blog.Func.Services
                 await Chart.SaveData(reactions, 12, username);
                 await Chart.SaveData(comments, 13, username);
             }
-        }
-
-        [FunctionName("GetDevTo")]
-        [OpenApiOperation(operationId: "GetDevToFn", tags: new[] { "api" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetDevToFn(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            await GetDevTo();
         }
     }
 }

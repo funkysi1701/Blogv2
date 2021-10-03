@@ -1,13 +1,6 @@
 ﻿using ImpSoft.OctopusEnergy.Api;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.Cosmos;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
-using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,32 +24,12 @@ namespace Blog.Func.Services
             Key = Configuration.GetValue<string>("OctopusKey");
         }
 
-        [FunctionName("GetGas")]
-        [OpenApiOperation(operationId: "GetGasFn", tags: new[] { "api" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetGasFn(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            await GetGas();
-        }
-
         public async Task GetGas()
         {
             DateTimeOffset From = new DateTimeOffset(DateTime.UtcNow.AddDays(-30).AddHours(-1).AddMinutes(-1 * DateTime.UtcNow.AddMinutes(-30).Minute), TimeSpan.FromHours(0));
             DateTimeOffset To = new DateTimeOffset(DateTime.UtcNow.AddMinutes(-1 * DateTime.UtcNow.AddMinutes(-30).Minute), TimeSpan.FromHours(0));
             var consumption = await Client.GetGasConsumptionAsync(Key, Configuration.GetValue<string>("OctopusGasMPAN"), Configuration.GetValue<string>("OctopusGasSerial"), From, To, Interval.Hour);
             await CheckConsumption(14, consumption);
-        }
-
-        [FunctionName("GetElec")]
-        [OpenApiOperation(operationId: "GetElecFn", tags: new[] { "api" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        public async Task GetElecFn(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            await GetElec();
         }
 
         public async Task GetElec()
