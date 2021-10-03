@@ -12,7 +12,7 @@ namespace Blog.Func.Services
     public class TwitterService
     {
         private readonly Chart Chart;
-        private TwitterClient TwitterClient { get; set; }
+        public TwitterClient TwitterClient { get; set; }
         private IConfiguration Configuration { get; set; }
 
         private readonly List<string> users;

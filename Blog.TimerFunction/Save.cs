@@ -12,9 +12,11 @@ namespace Blog.TimerFunction
         private readonly PowerService powerService;
         private readonly GithubService githubService;
         private readonly DevToService devToService;
+        private readonly Compare Compare;
 
-        public Save(TwitterService twitterService, PowerService powerService, GithubService githubService, DevToService devToService)
+        public Save(TwitterService twitterService, PowerService powerService, GithubService githubService, DevToService devToService, Compare Compare)
         {
+            this.Compare = Compare;
             this.twitterService = twitterService;
             this.powerService = powerService;
             this.githubService = githubService;
@@ -33,6 +35,7 @@ namespace Blog.TimerFunction
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await twitterService.GetTwitterFollowers(log);
+            await Compare.CompareTwitterFollowers(log);
         }
 
         [FunctionName("SaveTwitterFollowing")]
