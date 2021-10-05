@@ -36,17 +36,26 @@ namespace Blog.Func.Services
             TwitterClient.Config.RateLimitTrackerMode = RateLimitTrackerMode.TrackAndAwait;
             foreach (var username in users)
             {
-                var count = new List<long>();
-                var followers = TwitterClient.Users.GetFollowerIdsIterator(new GetFollowerIdsParameters(username)
+                try
                 {
-                    PageSize = 5000
-                });
-                while (!followers.Completed)
-                {
-                    var page = await followers.NextPageAsync();
-                    count.AddRange(page);
+                    var count = new List<long>();
+                    var followers = TwitterClient.Users.GetFollowerIdsIterator(new GetFollowerIdsParameters(username)
+                    {
+                        PageSize = 1000
+                    });
+                    while (!followers.Completed)
+                    {
+                        var page = await followers.NextPageAsync();
+                        count.AddRange(page);
+                    }
+                    await Chart.SaveData(count.Count, 0, username);
+                    log.LogInformation($"{count.Count} {username}");
                 }
-                await Chart.SaveData(count.Count, 0, username);
+                catch (Exception e)
+                {
+                    log.LogError($"Failed to save for {username} Exception {e.Message}");
+                }
+
             }
         }
 
