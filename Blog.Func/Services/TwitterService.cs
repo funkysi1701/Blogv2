@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tweetinvi;
+using Tweetinvi.Parameters;
 
 namespace Blog.Func.Services
 {
@@ -32,10 +33,20 @@ namespace Blog.Func.Services
 
         public async Task GetTwitterFollowers(ILogger log)
         {
+            TwitterClient.Config.RateLimitTrackerMode = RateLimitTrackerMode.TrackAndAwait;
             foreach (var username in users)
             {
-                var followers = (await TwitterClient.Users.GetFollowerIdsAsync(username)).Length;
-                await Chart.SaveData(followers, 0, username);
+                var count = new List<long>();
+                var followers = TwitterClient.Users.GetFollowerIdsIterator(new GetFollowerIdsParameters(username)
+                {
+                    PageSize = 5000
+                });
+                while (!followers.Completed)
+                {
+                    var page = await followers.NextPageAsync();
+                    count.AddRange(page);
+                }
+                await Chart.SaveData(count.Count, 0, username);
             }
         }
 
