@@ -167,8 +167,20 @@ namespace Blog.Pages
             IList<IList<ChartView>> monthlyChart = await BlogService.GetChart((int)Type, (int)MyChartType.Monthly, OffSet, Username);
             if (Type == MetricType.Gas || Type == MetricType.Electricity)
             {
-                var result =
+                var preresult =
                     from s in monthlyChart[0].OrderBy(x => x.Date)
+                    group s by new
+                    {
+                        Date = new DateTime(s.Date.Year, s.Date.Month, s.Date.Day, s.Date.Hour, 0, 0)
+                    } into g
+                    select new
+                    {
+                        g.Key.Date,
+                        Total = g.Average(x => x.Total),
+                    };
+
+                var result =
+                    from s in preresult
                     group s by new
                     {
                         Date = new DateTime(s.Date.Year, s.Date.Month, 1)
