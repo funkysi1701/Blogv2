@@ -33,6 +33,13 @@ steps:
     includePreviewVersions: true
 
 - task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: 'Blog.sln'
+    feedsToUse: 'select'
+    vstsFeed: '2c2a6a60-448c-4153-a1be-d2ce39bfbb0d'
+
+- task: DotNetCoreCLI@2
   displayName: 'Build Web'
   inputs:
     command: 'build'
