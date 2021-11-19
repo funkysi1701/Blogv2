@@ -56,10 +56,10 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.100
+        dotnet-version: 6.0.100
         
     - name: Build
-      run: dotnet build -c Release --no-cache ./Blog/Blog.csproj
+      run: dotnet build -c Release --no-cache 
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 https://git.io/JvXDl
