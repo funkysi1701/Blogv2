@@ -4,7 +4,7 @@ trigger:
 - main
 
 pool:
-  vmImage: windows-latest
+  vmImage: windows-2022
 
 variables:
   buildPlatform: 'Any CPU'
@@ -19,12 +19,6 @@ steps:
     projectKey: 'funkysi1701_Blogv2'
     projectName: 'Blogv2'
     projectVersion: '$(Build.BuildId)'
-
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '6.x'
-    includePreviewVersions: true
 
 - task: DotNetCoreCLI@2
   inputs:
