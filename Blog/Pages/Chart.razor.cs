@@ -57,7 +57,7 @@ namespace Blog.Pages
         protected async Task LoadHourly(string Username)
         {
             IList<IList<ChartView>> hourlyChart = await BlogService.GetChart((int)Type, (int)MyChartType.Hourly, OffSet, Username);
-            foreach (var subitem in hourlyChart[0].OrderByDescending(x => x.Date))
+            foreach (var subitem in hourlyChart[0].OrderBy(x => x.Date))
             {
                 if (subitem.Total.HasValue)
                 {
@@ -66,7 +66,7 @@ namespace Blog.Pages
                 }
             }
 
-            foreach (var subitem in hourlyChart[1].OrderByDescending(x => x.Date))
+            foreach (var subitem in hourlyChart[1].OrderBy(x => x.Date))
             {
                 if (subitem.Total.HasValue)
                 {
@@ -86,7 +86,7 @@ namespace Blog.Pages
             if (Type == MetricType.Gas || Type == MetricType.Electricity)
             {
                 var result =
-                    from s in dailyChart[0].OrderByDescending(x => x.Date)
+                    from s in dailyChart[0].OrderBy(x => x.Date)
                     group s by new
                     {
                         Date = new DateTime(s.Date.Year, s.Date.Month, s.Date.Day)
@@ -104,7 +104,7 @@ namespace Blog.Pages
                 }
 
                 result =
-                    from s in dailyChart[1].OrderByDescending(x => x.Date)
+                    from s in dailyChart[1].OrderBy(x => x.Date)
                     group s by new
                     {
                         Date = new DateTime(s.Date.Year, s.Date.Month, s.Date.Day)
@@ -124,7 +124,7 @@ namespace Blog.Pages
             else
             {
                 var result =
-                    from s in dailyChart[0].OrderByDescending(x => x.Date)
+                    from s in dailyChart[0].OrderBy(x => x.Date)
                     group s by new
                     {
                         Date = new DateTime(s.Date.Year, s.Date.Month, s.Date.Day)
@@ -142,7 +142,7 @@ namespace Blog.Pages
                 }
 
                 result =
-                    from s in dailyChart[1].OrderByDescending(x => x.Date)
+                    from s in dailyChart[1].OrderBy(x => x.Date)
                     group s by new
                     {
                         Date = new DateTime(s.Date.Year, s.Date.Month, s.Date.Day)
@@ -168,7 +168,7 @@ namespace Blog.Pages
             if (Type == MetricType.Gas || Type == MetricType.Electricity)
             {
                 var preresult =
-                    from s in monthlyChart[0].OrderByDescending(x => x.Date)
+                    from s in monthlyChart[0].OrderBy(x => x.Date)
                     group s by new
                     {
                         Date = new DateTime(s.Date.Year, s.Date.Month, s.Date.Day, s.Date.Hour, 0, 0)
@@ -200,7 +200,7 @@ namespace Blog.Pages
             else
             {
                 var result =
-                    from s in monthlyChart[0].OrderByDescending(x => x.Date)
+                    from s in monthlyChart[0].OrderBy(x => x.Date)
                     group s by new
                     {
                         Date = new DateTime(s.Date.Year, s.Date.Month, 1)
