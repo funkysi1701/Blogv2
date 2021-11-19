@@ -86,38 +86,6 @@ namespace Blog.Func
             return GetAll();
         }
 
-        [FunctionName("Tidy")]
-        public async Task Tidy(
-            [TimerTrigger("0 15 0 * * *", RunOnStartup = false)] TimerInfo myTimer,
-            ILogger log)
-        {
-            log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
-            var listofdates = new List<DateTime?>();
-            var totaln = _container.GetItemLinqQueryable<Metric>(true, null, new QueryRequestOptions { MaxItemCount = -1 }).Where(x => x.Type >= (int)MetricType.Gas).ToList();
-            for (int i = 1; i < 13; i++)
-            {
-                for (int j = 1; j < 32; j++)
-                {
-                    var n = totaln.Where(x => x.Date.Value.Day == j && x.Date.Value.Month == i).ToList();
-                    foreach (var item in n.OrderBy(x => x.Date))
-                    {
-                        if (!listofdates.Contains(item.Date))
-                        {
-                            listofdates.Add(item.Date);
-                            log.LogInformation(item.Date?.ToString("yyyy-MM-dd HH:mm"));
-                            log.LogInformation(item.Value.ToString());
-                            log.LogInformation("###");
-                        }
-                        else
-                        {
-                            await _container.DeleteItemAsync<Metric>(item.id.ToString(), new PartitionKey(item.PartitionKey));
-                        }
-                    }
-                }
-                log.LogInformation($"Completed Month {i}");
-            }
-        }
-
         public async Task<IActionResult> SaveData(decimal value, int type, string Username)
         {
             var m = new Metric
