@@ -74,5 +74,9 @@ steps:
   continueOnError: true  
 - task: lighthouse-ci@1
   inputs:
+    command: 'autorun'
+    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
+- task: lighthouse-ci@1
+  inputs:
     command: 'upload'
     configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
