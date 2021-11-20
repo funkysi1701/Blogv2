@@ -28,16 +28,16 @@ else
 @code {
     private List<BlogPosts> blogs = new();
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-       var timer = new Timer(new TimerCallback(_ =>
+        var timer = new Timer(new TimerCallback(_ =>
+        {
+            InvokeAsync(async () =>
             {
-                InvokeAsync(async () =>
-                {
-                    blogs = await BlogService.GetBlogsAsync();
-                    blogs = blogs.Where(x => x.Published).ToList();
-                    StateHasChanged();
-                });
-            }), null, 1000, 5000);
+                blogs = await BlogService.GetBlogsAsync();
+                blogs = blogs.Where(x => x.Published).ToList();
+                StateHasChanged();
+            });
+        }), null, 1000, 5000);
     }
 }
