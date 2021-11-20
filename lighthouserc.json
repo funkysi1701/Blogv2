@@ -12,7 +12,6 @@
       "additive": false,
       "headful": false,
       "numberOfRuns": 3,
-      "puppeteerScript": "./fake-login.js",
       "url": [
         "https://www.funkysi1701.com/",
         "https://www.funkysi1701.com/metrics/"
