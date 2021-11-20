@@ -4,7 +4,7 @@
     "preset": "lighthouse:no-pwa",
     "assertions": {      
         "categories:performance": ["warn", {"aggregationMethod": "optimistic", "minScore": 0.80}],
-        "categories:accessibility": ["warn", {"aggregationMethod": "optimistic", "minScore": 0.90}]
+        "categories:accessibility": ["warn", {"aggregationMethod": "optimistic", "minScore": 0}]
     }
     },
     "collect": {
@@ -15,10 +15,7 @@
       "url": [
         "https://www.funkysi1701.com/",
         "https://www.funkysi1701.com/metrics/"
-      ],	  
-      "settings": {
-        "config-path": "./light-house-config.js"		    
-      }
+      ]
     },
     "upload": {
       "target": "lhci",
