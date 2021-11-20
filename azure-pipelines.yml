@@ -62,21 +62,21 @@ steps:
 - task: lighthouse-ci@1
   inputs:
     command: 'healthcheck'
+    targetArtifactPath: '$(Pipeline.Workspace)/s/'
     configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
 - task: lighthouse-ci@1
   inputs:
     command: 'collect'
+    targetArtifactPath: '$(Pipeline.Workspace)/s/'
     configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
 - task: lighthouse-ci@1
   inputs:
     command: 'assert'
+    targetArtifactPath: '$(Pipeline.Workspace)/s/'
     configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
   continueOnError: true  
 - task: lighthouse-ci@1
   inputs:
-    command: 'autorun'
-    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
-- task: lighthouse-ci@1
-  inputs:
     command: 'upload'
+    targetArtifactPath: '$(Pipeline.Workspace)/s/'
     configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
