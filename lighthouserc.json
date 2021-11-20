@@ -1,0 +1,21 @@
+{
+  "ci": {
+    "assert": {
+    "preset": "lighthouse:no-pwa",
+    "assertions": {      
+        "categories:performance": ["warn", {"aggregationMethod": "optimistic", "minScore": 0.80}],
+        "categories:accessibility": ["warn", {"aggregationMethod": "optimistic", "minScore": 0.00}]
+      }
+    },
+    "collect": {
+      "method": "node",
+      "additive": false,
+      "headful": false,
+      "numberOfRuns": 3,
+      "url": [
+        "https://www.funkysi1701.com/",
+        "https://www.funkysi1701.com/metrics/"
+      ]
+    }
+  }
+}
