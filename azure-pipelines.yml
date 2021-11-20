@@ -59,3 +59,6 @@ steps:
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
+- task: lighthouse-ci@1
+  inputs:
+    command: 'healthcheck'
