@@ -65,10 +65,13 @@ steps:
     configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
 - task: lighthouse-ci@1
   inputs:
-    command: 'collect'    
+    command: 'collect'
+    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
 - task: lighthouse-ci@1
   inputs:
     command: 'assert'
+    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
 - task: lighthouse-ci@1
   inputs:
     command: 'upload'
+    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
