@@ -71,6 +71,7 @@ steps:
   inputs:
     command: 'assert'
     configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
+  continueOnError: true  
 - task: lighthouse-ci@1
   inputs:
     command: 'upload'
