@@ -62,3 +62,12 @@ steps:
 - task: lighthouse-ci@1
   inputs:
     command: 'healthcheck'
+- task: lighthouse-ci@1
+  inputs:
+    command: 'collect'    
+- task: lighthouse-ci@1
+  inputs:
+    command: 'assert'
+- task: lighthouse-ci@1
+  inputs:
+    command: 'upload'
