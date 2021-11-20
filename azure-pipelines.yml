@@ -60,23 +60,21 @@ steps:
   inputs:
     pollingTimeoutSec: '300'
 - task: lighthouse-ci@1
+  displayName: 'lh healthcheck'
   inputs:
     command: 'healthcheck'
     targetArtifactPath: '$(Pipeline.Workspace)/s/'
     configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
 - task: lighthouse-ci@1
+  displayName: 'lh collect'
   inputs:
     command: 'collect'
     targetArtifactPath: '$(Pipeline.Workspace)/s/'
     configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
 - task: lighthouse-ci@1
+  displayName: 'lh assert'
   inputs:
     command: 'assert'
     targetArtifactPath: '$(Pipeline.Workspace)/s/'
     configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
   continueOnError: true  
-- task: lighthouse-ci@1
-  inputs:
-    command: 'upload'
-    targetArtifactPath: '$(Pipeline.Workspace)/s/'
-    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
