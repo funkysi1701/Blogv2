@@ -1,14 +1,16 @@
 ﻿@page "/"
+@using System.Threading
 
 @inject BlogService BlogService
 
-@if (blogs == null)
+    <Tag></Tag>
+
+@if (blogs == null || blogs.Count == 0)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <Tag></Tag>
     <div style="column-count: 2;">
         @foreach (var post in blogs)
         {
@@ -24,12 +26,18 @@ else
 }
 
 @code {
-    private List<BlogPosts>
-    blogs;
+    private List<BlogPosts> blogs = new();
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        blogs = await BlogService.GetBlogsAsync();
-        blogs = blogs.Where(x => x.Published).ToList();
+        var timer = new Timer(new TimerCallback(_ =>
+        {
+            InvokeAsync(async () =>
+            {
+                blogs = await BlogService.GetBlogsAsync();
+                blogs = blogs.Where(x => x.Published).ToList();
+                StateHasChanged();
+            });
+        }), null, 1000, 5000);
     }
 }
