@@ -2,13 +2,14 @@
 
 @inject BlogService BlogService
 
+    <Tag></Tag>
+
 @if (blogs == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <Tag></Tag>
     <div style="column-count: 2;">
         @foreach (var post in blogs)
         {
@@ -24,8 +25,7 @@ else
 }
 
 @code {
-    private List<BlogPosts>
-    blogs;
+    private List<BlogPosts> blogs = new();
 
     protected override async Task OnInitializedAsync()
     {
