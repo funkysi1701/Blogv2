@@ -62,6 +62,7 @@ steps:
 - task: lighthouse-ci@1
   inputs:
     command: 'healthcheck'
+    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
 - task: lighthouse-ci@1
   inputs:
     command: 'collect'    
