@@ -57,7 +57,14 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.100
-        
+        source-url: https://pkgs.dev.azure.com/funkysi1701/_packaging/FunkySi/nuget/v3/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{ secrets.PackagePAT }}
+    - name: restore package
+      run: |
+        dotnet restore Blog.sln 
+      env:
+        NUGET_AUTH_TOKEN: ${{ secrets.PackagePAT }}        
     - name: Build
       run: dotnet build -c Release --no-cache 
 
