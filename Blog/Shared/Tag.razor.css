@@ -3,3 +3,31 @@
         display: none;
     }
 }
+
+@media (min-width: 520px) {
+    .top {
+        width: 500px
+    }
+}
+
+.top {
+    margin: auto
+}
+
+img {
+    float: left;
+    padding-right: 15px;
+    height: 150px
+}
+
+.div-height {
+    min-height: 150px
+}
+
+h4.site-description {
+    font-size: 1.4em
+}
+
+.black {
+    color: black
+}
