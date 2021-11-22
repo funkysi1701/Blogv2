@@ -10,6 +10,18 @@
     }
 }
 
+@media (min-width: 620px) {
+    .top {
+        width: 600px
+    }
+}
+
+@media (min-width: 720px) {
+    .top {
+        width: 700px
+    }
+}
+
 .top {
     margin: auto
 }
