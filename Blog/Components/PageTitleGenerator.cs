@@ -21,7 +21,7 @@ namespace Blog.Components
                 "/" => string.Empty,
                 _ => $"{title}",
             };
-            return pageTitle + " - Funky Si's Tech Talk";
+            return pageTitle + " - Funky Si's Blog";
         }
     }
 }
