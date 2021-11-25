@@ -9,9 +9,9 @@
 }
 else
 {
-    <div style="column-count: 2;">
-        @foreach (var post in blogs)
-        {
+    <div>
+    <Virtualize Items="@blogs" Context="post">
+        <ItemContent>
             <div>
                 <h4><a href="/posts/@post.Slug">@post.Title</a></h4>
                 <p>
@@ -19,6 +19,7 @@ else
                     &nbsp;@post.Description
                 </p>
             </div>
-        }
+        </ItemContent>
+    </Virtualize>
     </div>
 }
