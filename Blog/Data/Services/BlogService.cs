@@ -23,7 +23,7 @@ namespace Blog.Data.Services
 
         public async Task<List<BlogPosts>> GetBlogsAsync(int n)
         {
-            return await Client.GetFromJsonAsync<List<BlogPosts>>(new Uri($"{Client.BaseAddress}api/GetAllBlogs/{n}"));
+            return await Client.GetFromJsonAsync<List<BlogPosts>>(new Uri($"{Client.BaseAddress}api/GetAllBlogs?n={n}"));
         }
 
         public async Task<BlogPostsSingle> GetBlogPostAsync(int id)
