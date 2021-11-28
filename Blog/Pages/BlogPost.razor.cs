@@ -19,7 +19,7 @@ namespace Blog.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            List<BlogPosts> blogs = await BlogService.GetBlogsAsync();
+            List<BlogPosts> blogs = await BlogService.GetBlogsAsync(200);
 
             thisblog = blogs.FirstOrDefault(x => x.Slug == Slug && x.Published);
             if (thisblog != null)

@@ -22,6 +22,7 @@ namespace Blog.Func
         [FunctionName("GetAllBlogs")]
         [OpenApiOperation(operationId: "Run", tags: new[] { "api" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        [OpenApiParameter(name: "n", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "The **n** parameter")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(List<BlogPosts>), Description = "The OK response")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
@@ -34,16 +35,17 @@ namespace Blog.Func
                 .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables()
                 .Build();
-            var posts = await GetAll(config);
+            string n = req.Query["n"];
+            var posts = await GetAll(config, int.Parse(n));
             return new OkObjectResult(posts);
         }
 
-        public static async Task<List<BlogPosts>> GetAll(IConfiguration config)
+        public static async Task<List<BlogPosts>> GetAll(IConfiguration config, int n)
         {
             var Client = new HttpClient();
             Client.DefaultRequestHeaders.Add("api-key", config.GetValue<string>("DEVTOAPI"));
             var baseurl = config.GetValue<string>("DEVTOURL");
-            using HttpResponseMessage httpResponse = await Client.GetAsync(new Uri($"{baseurl}articles/me/all?per_page=200"));
+            using HttpResponseMessage httpResponse = await Client.GetAsync(new Uri($"{baseurl}articles/me/all?per_page={n}"));
             string result = await httpResponse.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<BlogPosts>>(result);
         }
