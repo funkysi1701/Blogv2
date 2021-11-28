@@ -18,7 +18,7 @@ namespace Blog.Pages
             {
                 InvokeAsync(async () =>
                 {
-                    blogs = await BlogService.GetBlogsAsync();
+                    blogs = await BlogService.GetBlogsAsync(10);
                     blogs = blogs.Where(x => x.Published).ToList();
                     StateHasChanged();
                 });

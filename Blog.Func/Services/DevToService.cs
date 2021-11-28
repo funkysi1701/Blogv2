@@ -28,7 +28,7 @@ namespace Blog.Func.Services
         {
             foreach (var username in users)
             {
-                var blogs = await GetAllBlogs.GetAll(Configuration);
+                var blogs = await GetAllBlogs.GetAll(Configuration, 200);
                 await Chart.SaveData(blogs.Count, 9, username);
                 await Chart.SaveData(blogs.Count(x => x.Published), 10, username);
                 int views = 0;
