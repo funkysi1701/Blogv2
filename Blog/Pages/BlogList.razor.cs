@@ -15,7 +15,6 @@ namespace Blog.Pages
         protected override async Task OnInitializedAsync()
         {
             blogs = await BlogService.GetBlogsAsync(20);
-            blogs = blogs.Where(x => x.Published).ToList();
         }
     }
 }

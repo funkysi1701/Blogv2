@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace Blog.Func
                 .Build();
             string n = req.Query["n"];
             var posts = await GetAll(config, int.Parse(n));
-            return new OkObjectResult(posts);
+            return new OkObjectResult(posts.Where(x => x.Published));
         }
 
         public static async Task<List<BlogPosts>> GetAll(IConfiguration config, int n)
