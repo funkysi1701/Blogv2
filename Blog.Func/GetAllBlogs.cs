@@ -38,7 +38,7 @@ namespace Blog.Func
                 .Build();
             string n = req.Query["n"];
             var posts = await GetAll(config, int.Parse(n));
-            return new OkObjectResult(posts);
+            return new OkObjectResult(posts.Where(x => x.Published));
         }
 
         public static async Task<List<BlogPosts>> GetAll(IConfiguration config, int n)
