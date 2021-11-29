@@ -38,7 +38,7 @@ namespace Blog.Func
                 .Build();
             string n = req.Query["n"];
             var posts = await GetAll(config, int.Parse(n));
-            return new OkObjectResult(posts.Where(x => x.Published));
+            return new OkObjectResult(posts);
         }
 
         public static async Task<List<BlogPosts>> GetAll(IConfiguration config, int n)
@@ -48,7 +48,8 @@ namespace Blog.Func
             var baseurl = config.GetValue<string>("DEVTOURL");
             using HttpResponseMessage httpResponse = await Client.GetAsync(new Uri($"{baseurl}articles/me/all?per_page={n}"));
             string result = await httpResponse.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<List<BlogPosts>>(result);
+            var posts = JsonConvert.DeserializeObject<List<BlogPosts>>(result);
+            return posts.Where(x => x.Published).ToList();
         }
     }
 }
