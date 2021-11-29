@@ -3,7 +3,6 @@ using Blog.Data.Services;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Blog.Pages
@@ -15,7 +14,7 @@ namespace Blog.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            blogs = await BlogService.GetBlogsAsync(10);
+            blogs = await BlogService.GetBlogsAsync(20);
             blogs = blogs.Where(x => x.Published).ToList();
         }
     }
