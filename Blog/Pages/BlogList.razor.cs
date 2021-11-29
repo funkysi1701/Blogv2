@@ -3,7 +3,7 @@ using Blog.Data.Services;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace Blog.Pages
 {
@@ -12,17 +12,10 @@ namespace Blog.Pages
         [Inject] BlogService BlogService { get; set; }
         protected List<BlogPosts> blogs = new();
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            _ = new Timer(new TimerCallback(_ =>
-            {
-                InvokeAsync(async () =>
-                {
-                    blogs = await BlogService.GetBlogsAsync(10);
-                    blogs = blogs.Where(x => x.Published).ToList();
-                    StateHasChanged();
-                });
-            }), null, 1000, 5000);
+            blogs = await BlogService.GetBlogsAsync(20);
+            blogs = blogs.Where(x => x.Published).ToList();
         }
     }
 }
