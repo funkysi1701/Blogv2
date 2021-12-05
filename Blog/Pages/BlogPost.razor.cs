@@ -11,7 +11,7 @@ namespace Blog.Pages
     public class BlogPostBase : ComponentBase
     {
         [Inject] private BlogService BlogService { get; set; }
-        [Inject] private IHttpContextAccessor HttpContextAccessor { get; set; }
+        [Inject] private NavigationManager MyNavigationManager { get; set; }
 
         protected BlogPosts thisblog;
         protected BlogPostsSingle thisblogsingle;
@@ -23,10 +23,10 @@ namespace Blog.Pages
         {
             List<BlogPosts> blogs = await BlogService.GetBlogsAsync(200);
 
-            var url = HttpContextAccessor.HttpContext.Request.Path.Value;
+            var url = MyNavigationManager.Uri;
             if (url.Contains("lone-developer-to-senior-developer-my-2021-story-c3d"))
             {
-                HttpContextAccessor.HttpContext.Response.Redirect("/posts/lone -developer-to-senior-developer-my-2021-story-3g0a"); 
+                MyNavigationManager.NavigateTo("https://www.funkysi1701.com/posts/lone-developer-to-senior-developer-my-2021-story-3g0a"); 
             }
 
                 thisblog = blogs.FirstOrDefault(x => x.Slug == Slug && x.Published);
