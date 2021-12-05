@@ -24,7 +24,7 @@ namespace Blog.Pages
             List<BlogPosts> blogs = await BlogService.GetBlogsAsync(200);
 
             var url = MyNavigationManager.Uri;
-            if (url.Contains("lone-developer-to-senior-developer-my-2021-story-c3d"))
+            if (url.Contains("lone-developer-to-senior-developer-my-2021-story"))
             {
                 MyNavigationManager.NavigateTo("https://www.funkysi1701.com/posts/lone-developer-to-senior-developer-my-2021-story-3g0a"); 
             }
