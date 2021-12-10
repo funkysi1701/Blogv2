@@ -21,17 +21,19 @@ else
         <img src="@thisblog.Cover_Image" style="float:none" />
     }
     @((MarkupString)thisblogsingle.Body_Html)
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="@thisblog.Title" />
-    <meta name="twitter:description" content="@thisblog.Description" />
-    <meta name="twitter:image" content="https://storageaccountblog9f5d.blob.core.windows.net/blazor/wp-content/uploads/2014/09/1922276.jpg" />
-    <meta name="twitter:url" content="@thisblog.Canonical_Url" />
-    <meta name="twitter:site" content="@@funkysi1701" />
-    <meta property="og:url" content="@thisblog.Canonical_Url" />
-    <meta property="og:type" content="website" />
-    <meta property="og:description" content="@thisblog.Description" />
-    <meta property="og:title" content="@thisblog.Title" />
-    <meta property="og:image" content="https://storageaccountblog9f5d.blob.core.windows.net/blazor/wp-content/uploads/2014/09/1922276.jpg" />
+    <HeadContent>
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="@thisblog.Title" />
+        <meta name="twitter:description" content="@thisblog.Description" />
+        <meta name="twitter:image" content="https://storageaccountblog9f5d.blob.core.windows.net/blazor/wp-content/uploads/2014/09/1922276.jpg" />
+        <meta name="twitter:url" content="@thisblog.Canonical_Url" />
+        <meta name="twitter:site" content="@@funkysi1701" />
+        <meta property="og:url" content="@thisblog.Canonical_Url" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="@thisblog.Description" />
+        <meta property="og:title" content="@thisblog.Title" />
+        <meta property="og:image" content="https://storageaccountblog9f5d.blob.core.windows.net/blazor/wp-content/uploads/2014/09/1922276.jpg" />
+    </HeadContent>
     @if (!string.IsNullOrEmpty(thisblog.User.Profile_Image_90))
     {
         <div>
