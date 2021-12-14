@@ -86,7 +86,7 @@ namespace Blog.Func
             return GetAll();
         }
 
-        public async Task<IActionResult> SaveData(decimal value, int type, string Username)
+        public async Task<IActionResult> SaveData(decimal value, int type, string username)
         {
             var m = new Metric
             {
@@ -96,13 +96,13 @@ namespace Blog.Func
                 Type = type,
                 Value = value,
                 PartitionKey = "1",
-                Username = Username
+                Username = username
             };
             await _container.CreateItemAsync(m);
             return new OkResult();
         }
 
-        public async Task<IActionResult> SaveData(decimal value, int type, DateTime To, string Username)
+        public async Task<IActionResult> SaveData(decimal value, int type, DateTime To, string username)
         {
             var m = new Metric
             {
@@ -112,7 +112,7 @@ namespace Blog.Func
                 Type = type,
                 Value = value,
                 PartitionKey = "1",
-                Username = Username
+                Username = username
             };
             await _container.CreateItemAsync(m);
             return new OkResult();
