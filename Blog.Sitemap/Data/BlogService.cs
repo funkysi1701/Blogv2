@@ -17,27 +17,32 @@ namespace Blog.Sitemap.Data.Services
 
         public async Task<List<BlogPosts>> GetBlogsAsync(int n)
         {
-            return await Client.GetFromJsonAsync<List<BlogPosts>>(new Uri($"{Client.BaseAddress}api/GetAllBlogs?n={n}"));
+            var res =  await Client.GetFromJsonAsync<List<BlogPosts>>(new Uri($"{Client.BaseAddress}api/GetAllBlogs?n={n}"));
+            return res ?? new List<BlogPosts>();
         }
 
         public async Task<BlogPostsSingle> GetBlogPostAsync(int id)
         {
-            return await Client.GetFromJsonAsync<BlogPostsSingle>(new Uri($"{Client.BaseAddress}api/GetPost?id={id}"));
+            var res = await Client.GetFromJsonAsync<BlogPostsSingle>(new Uri($"{Client.BaseAddress}api/GetPost?id={id}"));
+            return res ?? new BlogPostsSingle();
         }
 
         public async Task<IList<IList<ChartView>>> GetChart(int type, int day, int offSet, string username)
         {
-            return await Client.GetFromJsonAsync<IList<IList<ChartView>>>(new Uri($"{Client.BaseAddress}api/GetChart?type={type}&day={day}&offset={offSet}&username={username}"));
+            var res = await Client.GetFromJsonAsync<IList<IList<ChartView>>>(new Uri($"{Client.BaseAddress}api/GetChart?type={type}&day={day}&offset={offSet}&username={username}"));
+            return res ?? new List<IList<ChartView>>();
         }
 
         public async Task<List<Metric>> Get(int type)
         {
-            return await Client.GetFromJsonAsync<List<Metric>>(new Uri($"{Client.BaseAddress}api/Get?type={type}"));
+            var res = await Client.GetFromJsonAsync<List<Metric>>(new Uri($"{Client.BaseAddress}api/Get?type={type}"));
+            return res ?? new List<Metric>();
         }
 
         public async Task<List<Metric>> GetAll()
         {
-            return await Client.GetFromJsonAsync<List<Metric>>(new Uri($"{Client.BaseAddress}api/GetAll"));
+            var res = await Client.GetFromJsonAsync<List<Metric>>(new Uri($"{Client.BaseAddress}api/GetAll"));
+            return res ?? new List<Metric>();
         }
 
         public async Task SaveData(decimal value, int type)
