@@ -18,7 +18,7 @@ else
     <p></p>
     @if (!string.IsNullOrEmpty(thisblog.Cover_Image))
     {
-        <img src="@thisblog.Cover_Image" style="float:none" />
+        <img alt="@thisblog.Title" src="@thisblog.Cover_Image" style="float:none" />
     }
     @((MarkupString)thisblogsingle.Body_Html)
     <HeadContent>
@@ -37,7 +37,7 @@ else
     @if (!string.IsNullOrEmpty(thisblog.User.Profile_Image_90))
     {
         <div>
-            <img src="@thisblog.User.Profile_Image_90" style="float:left;margin-right:5px" />
+            <img src="@thisblog.User.Profile_Image_90" alt="Funky Si profile image" style="float:left;margin-right:5px" />
         </div>
         <div>
             <span>Simon Foster</span><br />
