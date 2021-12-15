@@ -1,7 +1,6 @@
 ﻿using Blog.Core;
 using Blog.Data.Services;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,6 +18,8 @@ namespace Blog.Pages
         [Parameter]
         public string Slug { get; set; }
 
+        protected string PageTitle { get; set; } = string.Empty;
+
         protected override async Task OnInitializedAsync()
         {
             List<BlogPosts> blogs = await BlogService.GetBlogsAsync(200);
@@ -26,13 +27,18 @@ namespace Blog.Pages
             var url = MyNavigationManager.Uri;
             if (url.Contains("lone-developer-to-senior-developer-my-2021-story"))
             {
-                MyNavigationManager.NavigateTo("https://www.funkysi1701.com/posts/lone-developer-to-senior-developer-my-2021-story-3g0a"); 
+                MyNavigationManager.NavigateTo("https://www.funkysi1701.com/posts/lone-developer-to-senior-developer-my-2021-story-3g0a");
             }
 
-                thisblog = blogs.FirstOrDefault(x => x.Slug == Slug && x.Published);
+            thisblog = blogs.FirstOrDefault(x => x.Slug == Slug && x.Published);
             if (thisblog != null)
             {
                 thisblogsingle = await BlogService.GetBlogPostAsync(thisblog.Id);
+                if (thisblog.Title.Length < 50)
+                {
+                    PageTitle = $"{thisblog.Title} - Funky Si's Blog";
+                }
+                else PageTitle = $"{thisblog.Title}";
             }
 
             this.StateHasChanged();
