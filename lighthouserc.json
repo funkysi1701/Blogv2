@@ -20,6 +20,11 @@
         "https://www.funkysi1701.com/metrics/",
         "https://www.funkysi1701.com/pwned-pass"
       ]
+    },
+    "upload": {
+      "target": "lhci",
+      "serverBaseUrl": "https://lighthousefunkysi.azurewebsites.net/",
+      "token": "${{ secrets.LHCI_TOKEN }}"
     }
   }
 }
