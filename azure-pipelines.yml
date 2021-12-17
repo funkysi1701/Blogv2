@@ -78,3 +78,9 @@ steps:
     targetArtifactPath: '$(Pipeline.Workspace)/s/'
     configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
   continueOnError: true  
+- task: lighthouse-ci@1
+  displayName: 'lh upload'
+  inputs:
+    command: 'upload'
+    targetArtifactPath: '$(Pipeline.Workspace)/s/'
+    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'   
