@@ -65,21 +65,21 @@ steps:
     command: 'healthcheck'
     targetArtifactPath: '$(Pipeline.Workspace)/s/'
     configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
-    parameters: '--token $(LHCI_TOKEN)'
+    parameters: '--token $(LHCI_TOKEN) --githubToken $(GITHUB)'
 - task: lighthouse-ci@1
   displayName: 'lh collect'
   inputs:
     command: 'collect'
     targetArtifactPath: '$(Pipeline.Workspace)/s/'
     configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
-    parameters: '--token $(LHCI_TOKEN)'
+    parameters: '--token $(LHCI_TOKEN) --githubToken $(GITHUB)'
 - task: lighthouse-ci@1
   displayName: 'lh assert'
   inputs:
     command: 'assert'
     targetArtifactPath: '$(Pipeline.Workspace)/s/'
     configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
-    parameters: '--token $(LHCI_TOKEN)'
+    parameters: '--token $(LHCI_TOKEN) --githubToken $(GITHUB)'
   continueOnError: true  
 - task: lighthouse-ci@1
   displayName: 'lh upload'
@@ -87,4 +87,4 @@ steps:
     command: 'upload'
     targetArtifactPath: '$(Pipeline.Workspace)/s/'
     configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
-    parameters: '--token $(LHCI_TOKEN)'
+    parameters: '--token $(LHCI_TOKEN) --githubToken $(GITHUB)'
