@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace Blog.Func
@@ -45,6 +46,11 @@ namespace Blog.Func
         {
             var Client = new HttpClient();
             Client.DefaultRequestHeaders.Add("api-key", config.GetValue<string>("DEVTOAPI"));
+            var productValue = new ProductInfoHeaderValue("Funkysi1701Blog", "1.0");
+            var commentValue = new ProductInfoHeaderValue("(+https://www.funkysi1701.com)");
+
+            Client.DefaultRequestHeaders.UserAgent.Add(productValue);
+            Client.DefaultRequestHeaders.UserAgent.Add(commentValue);
             var baseurl = config.GetValue<string>("DEVTOURL");
             using HttpResponseMessage httpResponse = await Client.GetAsync(new Uri($"{baseurl}articles/me/all?per_page={n}"));
             string result = await httpResponse.Content.ReadAsStringAsync();
