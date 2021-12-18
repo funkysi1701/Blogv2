@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
@@ -36,6 +37,11 @@ namespace Blog.Func
                 .Build();
             var Client = new HttpClient();
             Client.DefaultRequestHeaders.Add("api-key", config.GetValue<string>("DEVTOAPI"));
+            var productValue = new ProductInfoHeaderValue("Funkysi1701Blog", "1.0");
+            var commentValue = new ProductInfoHeaderValue("(+https://www.funkysi1701.com)");
+
+            Client.DefaultRequestHeaders.UserAgent.Add(productValue);
+            Client.DefaultRequestHeaders.UserAgent.Add(commentValue);
             var baseurl = config.GetValue<string>("DEVTOURL");
             string id = req.Query["id"];
             log.LogInformation(id);
