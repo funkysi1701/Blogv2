@@ -1,4 +1,8 @@
 ﻿@page "/about"
+@page "/author"
+@page "/author/{Name1}"
+@page "/author/{Name1}/{Name2}"
+@page "/author/{Name1}/{Name2}/{Name3}"
 
 @inject BlogService BlogService
 <PageTitle>About Me - Funky Si's Blog</PageTitle>
@@ -34,3 +38,13 @@
     <p><i>Simon worked for my company for a number of years and was a very valued member of staff, and later on management. He is an intelligent and conscientious worker who gives over and above on a regular basis. He leads by example and was respected by his peers and the directors of the company. I would not hesitate to recommend Simon both in terms of the quality of his work and his ethics and values in life in general.</i> - Alison Davies (CEO at Eurosafe UK)</p>
     <p><i>If you want a developer who really understands DevOps, then Si is your man. With a mixture of operations, support, development and management experience, he can bring a balanced skillset to a team, as well as excellent knowledge of Azure, .NET, SQL and the web.</i> - Keith Williams (Development Manager at IRIS for Cascade HR and KashFlow Payroll)</p>
 </div>
+
+@code{
+
+        [Parameter]
+        public string Name1 { get; set; }
+        [Parameter]
+        public string Name2 { get; set; }
+        [Parameter]
+        public string Name3 { get; set; }
+}
