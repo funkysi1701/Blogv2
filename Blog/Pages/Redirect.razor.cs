@@ -41,6 +41,10 @@ namespace Blog.Pages
             {
                 blogs = blogs.Where(x => x.Published_At.Value.Day == Day).ToList();
             }
+            if (blogs.Count == 1)
+            {
+                MyNavigationManager.NavigateTo(blogs[0].Canonical_Url);
+            }
         }
     }
 }
