@@ -27,7 +27,7 @@ namespace Blog.Pages
             var url = MyNavigationManager.Uri;
             if (url.Contains("lone-developer-to-senior-developer-my-2021-story"))
             {
-                MyNavigationManager.NavigateTo("https://www.funkysi1701.com/posts/lone-developer-to-senior-developer-my-2021-story-3g0a");
+                MyNavigationManager.NavigateTo($"{MyNavigationManager.BaseUri}posts/lone-developer-to-senior-developer-my-2021-story-3g0a");
             }
 
             thisblog = blogs.FirstOrDefault(x => x.Slug == Slug && x.Published);
