@@ -8,7 +8,7 @@
     }
   },
   "globalHeaders": {
-    "content-security-policy": "img-src 'self' data: https://www.google-analytics.com https://storageaccountblog9f5d.blob.core.windows.net https://res.cloudinary.com ; connect-src 'self' https://c.clarity.ms https://d.clarity.ms https://www.clarity.ms https://www.google-analytics.com; child-src https://www.youtube.com; object-src none",
+    "content-security-policy": "img-src 'self' data: https://www.google-analytics.com https://storageaccountblog9f5d.blob.core.windows.net https://res.cloudinary.com ; connect-src 'self' https://c.clarity.ms https://d.clarity.ms https://e.clarity.ms https://www.clarity.ms https://www.google-analytics.com; child-src https://www.youtube.com; object-src none report-uri https://funkysi1701.report-uri.com/r/d/csp/reportOnly",
     "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
     "X-Frame-Options": "SAMEORIGIN",
     "X-Content-Type-Options": "nosniff",
