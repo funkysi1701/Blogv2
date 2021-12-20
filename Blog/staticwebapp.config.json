@@ -15,6 +15,7 @@
     "Referrer-Policy": "strict-origin",
     "Permissions-Policy": "geolocation=(), camera=(), fullscreen=(), microphone=(), accelerometer=()",
     "report-to": "{\"group\":\"default\",\"max_age\":31536000,\"endpoints\":[{\"url\":\"https://funkysi1701.report-uri.com/a/d/g\"}],\"include_subdomains\":true}",
-    "nel": "{\"report_to\":\"default\",\"max_age\":31536000,\"include_subdomains\":true}"
+    "nel": "{\"report_to\":\"default\",\"max_age\":31536000,\"include_subdomains\":true}",
+    "expect-ct": "max-age=604800, report-uri=\"https://funkysi1701.report-uri.com/r/d/ct/enforce\""
   }
 }
