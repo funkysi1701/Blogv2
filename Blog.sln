@@ -8,13 +8,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{42A7550E-4BB8-4506-A5C6-34F5E1812F17}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\azure-static-web-apps-brave-rock-0aac63d03.yml = .github\workflows\azure-static-web-apps-brave-rock-0aac63d03.yml
+		lighthouserc.json = lighthouserc.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Func", "Blog.Func\Blog.Func.csproj", "{ACB215BB-416A-41DF-858F-C46D2AAA9128}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Core", "Blog.Core\Blog.Core.csproj", "{2C9B5DB0-7B77-4E4A-8A94-FF48C111E184}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Sitemap", "Blog.Sitemap\Blog.Sitemap.csproj", "{05680382-0D5A-4AC8-9B1E-8431CAAEE11C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Sitemap", "Blog.Sitemap\Blog.Sitemap.csproj", "{05680382-0D5A-4AC8-9B1E-8431CAAEE11C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

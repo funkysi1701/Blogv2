@@ -1,11 +1,7 @@
 {
   "ci": {
     "assert": {
-    "preset": "lighthouse:no-pwa",
-    "assertions": {      
-        "categories:performance": ["warn", {"aggregationMethod": "optimistic", "minScore": 0.80}],
-        "categories:accessibility": ["warn", {"aggregationMethod": "optimistic", "minScore": 0.00}]
-      }
+      "preset": "lighthouse:no-pwa"
     },
     "collect": {
       "settings": {
@@ -18,7 +14,9 @@
       "url": [
         "https://www.funkysi1701.com/",
         "https://www.funkysi1701.com/metrics/",
-        "https://www.funkysi1701.com/pwned-pass"
+        "https://www.funkysi1701.com/pwned-pass",
+        "https://www.funkysi1701.com/posts/lone-developer-to-senior-developer-my-2021-story-3g0a",
+        "https://www.funkysi1701.com/posts/a-comparison-of-all-good-things-and-star-trek-picard-nb0"
       ]
     },
     "upload": {
