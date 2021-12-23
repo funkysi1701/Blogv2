@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <UserSecretsId>b6311e25-4d47-4f9f-9de2-ccc3883cee3a</UserSecretsId>
     <ApplicationInsightsResourceId>/subscriptions/aa403fbf-410c-4158-9746-9c5f82cfa2dc/resourceGroups/Blog/providers/microsoft.insights/components/static1701</ApplicationInsightsResourceId>
+    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,5 +19,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Blog.Core\Blog.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ServiceWorker Include="wwwroot\service-worker.js"
+      PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 </Project>
