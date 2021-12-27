@@ -45,6 +45,7 @@
         <a href="/" class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js" defer autostart="false"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             setTimeout(function () { Blazor.start(); }, 1200);
