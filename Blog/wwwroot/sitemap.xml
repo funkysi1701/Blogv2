@@ -1,5 +1,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.funkysi1701.com/posts/back-to-basic-3c83</loc>
+    <lastmod>2021-12-28</lastmod>
+  </url>
+  <url>
     <loc>https://www.funkysi1701.com/posts/lone-developer-to-senior-developer-my-2021-story-3g0a</loc>
     <lastmod>2021-12-05</lastmod>
   </url>
@@ -132,7 +136,7 @@
     <lastmod>2018-07-28</lastmod>
   </url>
   <url>
-    <loc>https://www.funkysi1701.com/2018/05/07/casting-and-converting-between-types/</loc>
+    <loc>https://www.funkysi1701.com/posts/casting-and-converting-between-types-4g3a</loc>
     <lastmod>2018-05-07</lastmod>
   </url>
   <url>
@@ -144,7 +148,7 @@
     <lastmod>2018-04-09</lastmod>
   </url>
   <url>
-    <loc>https://www.funkysi1701.com/2018/04/02/codereviews/</loc>
+    <loc>https://www.funkysi1701.com/posts/code-reviews-6fj</loc>
     <lastmod>2018-04-02</lastmod>
   </url>
   <url>
@@ -196,7 +200,7 @@
     <lastmod>2018-01-08</lastmod>
   </url>
   <url>
-    <loc>https://www.funkysi1701.com/2018/01/01/lets-see-2018-can/</loc>
+    <loc>https://www.funkysi1701.com/posts/lets-see-what-2018-can-do-1ga8</loc>
     <lastmod>2018-01-01</lastmod>
   </url>
   <url>
@@ -220,7 +224,7 @@
     <lastmod>2017-10-31</lastmod>
   </url>
   <url>
-    <loc>https://www.funkysi1701.com/2017/10/16/creating-dns-records-programmatically/</loc>
+    <loc>https://www.funkysi1701.com/posts/creating-dns-records-programmatically-26lp</loc>
     <lastmod>2017-10-16</lastmod>
   </url>
   <url>
@@ -244,7 +248,7 @@
     <lastmod>2017-08-14</lastmod>
   </url>
   <url>
-    <loc>https://www.funkysi1701.com/2017/08/07/android-app-development/</loc>
+    <loc>https://www.funkysi1701.com/posts/android-app-development-and-the-visual-studio-mobile-centre-2o2</loc>
     <lastmod>2017-08-07</lastmod>
   </url>
   <url>
@@ -268,7 +272,7 @@
     <lastmod>2017-07-03</lastmod>
   </url>
   <url>
-    <loc>https://www.funkysi1701.com/2017/06/26/using-azure-webjobs-automate-stuff/</loc>
+    <loc>https://www.funkysi1701.com/posts/using-azure-webjobs-to-automate-stuff-38mj</loc>
     <lastmod>2017-06-26</lastmod>
   </url>
   <url>
@@ -316,11 +320,11 @@
     <lastmod>2015-06-12</lastmod>
   </url>
   <url>
-    <loc>https://www.funkysi1701.com/2015/03/16/source-control-fail/</loc>
+    <loc>https://www.funkysi1701.com/posts/source-control-fail-dgn</loc>
     <lastmod>2015-03-16</lastmod>
   </url>
   <url>
-    <loc>https://www.funkysi1701.com/2015/03/12/azure-traffic-manager/</loc>
+    <loc>https://www.funkysi1701.com/posts/azure-traffic-manager-3k9k</loc>
     <lastmod>2015-03-12</lastmod>
   </url>
   <url>
@@ -328,7 +332,11 @@
     <lastmod>2015-03-11</lastmod>
   </url>
   <url>
-    <loc>https://www.funkysi1701.com/2014/09/24/i-love-nagios/</loc>
+    <loc>https://www.funkysi1701.com/posts/source-code-for-game-of-life-2eo3</loc>
+    <lastmod>2015-02-21</lastmod>
+  </url>
+  <url>
+    <loc>https://www.funkysi1701.com/posts/i-love-nagios-m6</loc>
     <lastmod>2014-09-24</lastmod>
   </url>
   <url>
