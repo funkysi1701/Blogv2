@@ -37,7 +37,7 @@ else
     <article data-clarity-region="article">
         @((MarkupString)thisblogsingle.Body_Html)
     </article>
-
+    <span>This post is also available on <a href="https://dev.to/funkysi1701/@Slug">Dev.To</a>.</span><br /><br />
     @if (!string.IsNullOrEmpty(thisblog.User.Profile_Image_90))
     {
         <div>
