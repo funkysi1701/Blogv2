@@ -27,7 +27,7 @@ else
     <br />
     @foreach (var item in thisblog.Tag_List)
     {
-        <span class="badge bg-info">@item</span><span>&nbsp;</span>
+        <span class="badge bg-info"><a href="/tag/@item">@item</a></span><span>&nbsp;</span>
     }
     <p></p>
     @if (!string.IsNullOrEmpty(thisblog.Cover_Image))
