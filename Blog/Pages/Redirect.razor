@@ -14,6 +14,18 @@ else if(blogs.Count == 0)
 }
 else
 {
+    @if(Year > 0)
+    {
+        @if(Month > 0)
+        {
+            <h2>Blog Posts for @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Month) @Year</h2>
+        }
+        else
+        {
+            <h2>Blog Posts for @Year</h2>
+        }
+    }
+    
     <div>
         <Virtualize Items="@blogs" Context="post">
             <ItemContent>
