@@ -1,0 +1,8 @@
+﻿@page "/tag/{tagname}"
+<PageTitle>@TagName - Funky Si's Blog</PageTitle>
+<h2>Blog Posts with Tag of @TagName</h2>
+
+@code{
+	[Parameter]
+	public string TagName { get; set; }
+}
