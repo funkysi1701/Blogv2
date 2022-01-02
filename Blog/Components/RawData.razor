@@ -1,0 +1,14 @@
+﻿@namespace Blog.Components
+@inherits LineBase
+
+<div style="max-width: 400px !important;float:left;padding:30px">
+    <table>
+        @foreach (var item in Set.Data)
+        {
+            <tr>
+                <td>@item.Time</td>
+                <td>@item.YValue</td>
+            </tr>
+        }
+    </table>
+</div>
