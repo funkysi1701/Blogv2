@@ -64,7 +64,7 @@ namespace Blog.Components
                                     Ticks = new TimeTicks
                                     {
                                         Source = TickSource.Auto,
-                                        Reverse = true
+                                        Reverse = false
                                     },
                                     Time = new TimeOptions
                                     {
@@ -111,7 +111,7 @@ namespace Blog.Components
                                     Ticks = new TimeTicks
                                     {
                                         Source = TickSource.Auto,
-                                        Reverse = true
+                                        Reverse = false
                                     },
                                     Time = new TimeOptions
                                     {
@@ -158,7 +158,7 @@ namespace Blog.Components
                                     Ticks = new TimeTicks
                                     {
                                         Source = TickSource.Auto,
-                                        Reverse = true
+                                        Reverse = false
                                     },
                                     Time = new TimeOptions
                                     {
