@@ -35,6 +35,10 @@ namespace Blog.Components
         [Parameter]
         public MyChartType Day { get; set; }
 
+        protected LineDataset<TimeTuple<decimal>> Set;
+
+        protected LineDataset<TimeTuple<decimal>> PrevSet;
+
         protected override void OnInitialized()
         {
             if (Day == MyChartType.Hourly)
@@ -179,7 +183,7 @@ namespace Blog.Components
                 };
             }
 
-            var Set = new LineDataset<TimeTuple<decimal>>
+            Set = new LineDataset<TimeTuple<decimal>>
             {
                 BackgroundColor = ColorUtil.FromDrawingColor(Color.Blue),
                 BorderColor = ColorUtil.FromDrawingColor(Color.Blue),
@@ -192,7 +196,7 @@ namespace Blog.Components
                 Label = "Current"
             };
 
-            var PrevSet = new LineDataset<TimeTuple<decimal>>
+            PrevSet = new LineDataset<TimeTuple<decimal>>
             {
                 BackgroundColor = ColorUtil.FromDrawingColor(Color.LightBlue),
                 BorderDash = new int[] { 10, 5 },
