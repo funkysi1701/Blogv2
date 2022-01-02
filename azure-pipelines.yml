@@ -69,6 +69,11 @@ steps:
     targetPath: '$(Pipeline.Workspace)/a/Blog.Func.zip'
     artifact: 'func'
     publishLocation: 'pipeline'    
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)/a/Blog.TimerFunction.zip'
+    artifact: 'TimerFunction'
+    publishLocation: 'pipeline'    
 - task: SonarCloudAnalyze@1
 
 - task: SonarCloudPublish@1
