@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImpSoft.OctopusEnergy.Api",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImpSoft.OctopusEnergy.Api.Tests", "ImpSoft.OctopusEnergy.Api.Tests\ImpSoft.OctopusEnergy.Api.Tests.csproj", "{3DE32B73-51A8-4182-9423-56FD82B8CF83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.TimerFunction", "Blog.TimerFunction\Blog.TimerFunction.csproj", "{EE2609AF-EC55-4F5C-B96E-E3758DEC6977}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{3DE32B73-51A8-4182-9423-56FD82B8CF83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DE32B73-51A8-4182-9423-56FD82B8CF83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DE32B73-51A8-4182-9423-56FD82B8CF83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE2609AF-EC55-4F5C-B96E-E3758DEC6977}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE2609AF-EC55-4F5C-B96E-E3758DEC6977}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE2609AF-EC55-4F5C-B96E-E3758DEC6977}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE2609AF-EC55-4F5C-B96E-E3758DEC6977}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

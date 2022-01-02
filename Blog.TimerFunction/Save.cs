@@ -1,10 +1,10 @@
-﻿using Blog.Func.Services;
+﻿using Blog.TimerFunction.Services;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace Blog.Func
+namespace Blog.TimerFunction
 {
     public class Save
     {
