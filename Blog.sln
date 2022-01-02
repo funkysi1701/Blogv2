@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Core", "Blog.Core\Blog
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Sitemap", "Blog.Sitemap\Blog.Sitemap.csproj", "{05680382-0D5A-4AC8-9B1E-8431CAAEE11C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImpSoft.OctopusEnergy.Api", "ImpSoft.OctopusEnergy.Api\ImpSoft.OctopusEnergy.Api.csproj", "{62E0CA92-FD81-49A9-A80B-41485E15564D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImpSoft.OctopusEnergy.Api.Tests", "ImpSoft.OctopusEnergy.Api.Tests\ImpSoft.OctopusEnergy.Api.Tests.csproj", "{3DE32B73-51A8-4182-9423-56FD82B8CF83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{05680382-0D5A-4AC8-9B1E-8431CAAEE11C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05680382-0D5A-4AC8-9B1E-8431CAAEE11C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05680382-0D5A-4AC8-9B1E-8431CAAEE11C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62E0CA92-FD81-49A9-A80B-41485E15564D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62E0CA92-FD81-49A9-A80B-41485E15564D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62E0CA92-FD81-49A9-A80B-41485E15564D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62E0CA92-FD81-49A9-A80B-41485E15564D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DE32B73-51A8-4182-9423-56FD82B8CF83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DE32B73-51A8-4182-9423-56FD82B8CF83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DE32B73-51A8-4182-9423-56FD82B8CF83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DE32B73-51A8-4182-9423-56FD82B8CF83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
