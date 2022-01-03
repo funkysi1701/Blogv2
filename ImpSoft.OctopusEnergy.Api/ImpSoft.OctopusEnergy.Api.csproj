@@ -24,7 +24,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
-		<PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+		<PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
