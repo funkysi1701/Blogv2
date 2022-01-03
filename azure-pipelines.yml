@@ -42,6 +42,13 @@ steps:
     arguments: '--configuration $(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Build TimerFunction'
+  inputs:
+    command: 'build'
+    projects: 'Blog.TimerFunction/Blog.TimerFunction.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
   displayName: 'Publish'
   inputs:
     command: 'publish'
@@ -49,10 +56,23 @@ steps:
     projects: 'Blog.Func/Blog.Func.csproj'
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory) /p:SourceRevisionId=$(Build.SourceVersion)'
 
+- task: DotNetCoreCLI@2
+  displayName: 'Publish'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'Blog.TimerFunction/Blog.TimerFunction.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory) /p:SourceRevisionId=$(Build.SourceVersion)'
+
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Pipeline.Workspace)/a/Blog.Func.zip'
     artifact: 'func'
+    publishLocation: 'pipeline'    
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)/a/Blog.TimerFunction.zip'
+    artifact: 'TimerFunction'
     publishLocation: 'pipeline'    
 - task: SonarCloudAnalyze@1
 
