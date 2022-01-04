@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Blog.TimerFunction
 {
-    public class GetAllBlogs
+    public static class GetAllBlogs
     {
         [FunctionName("GetAllBlogs")]
         [OpenApiOperation(operationId: "Run", tags: new[] { "api" })]
