@@ -6,7 +6,7 @@ namespace ImpSoft.OctopusEnergy.Api
     [Serializable]
     public class GspException : ApplicationException
     {
-        protected GspException(SerializationInfo info, StreamingContext context)
+        protected GspException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 
