@@ -124,20 +124,20 @@ namespace ImpSoft.OctopusEnergy.Api
             Preconditions.IsNotNullOrWhiteSpace(productCode, nameof(productCode));
             Preconditions.IsNotNullOrWhiteSpace(tariffCode, nameof(tariffCode));
 
-            return new Uri($"{BaseUrl}/v1/products/{productCode}/electricity-tariffs/{tariffCode}/{GetRateString()}-unit-rates/")
+            return new Uri($"{BaseUrl}/v1/products/{productCode}/electricity-tariffs/{tariffCode}/{GetRateString(rate)}-unit-rates/")
                 .AddQueryParam("page_size", MaxTariffsPageSize)
                 .AddQueryParam("period_from", from)
                 .AddQueryParam("period_to", to);
+        }
 
-            string GetRateString()
+        private static string GetRateString(ElectricityUnitRate rate)
+        {
+            switch (rate)
             {
-                switch (rate)
-                {
-                    case ElectricityUnitRate.Standard: return "standard";
-                    case ElectricityUnitRate.Day: return "day";
-                    case ElectricityUnitRate.Night: return "night";
-                    default: throw new ArgumentOutOfRangeException(nameof(rate));
-                }
+                case ElectricityUnitRate.Standard: return "standard";
+                case ElectricityUnitRate.Day: return "day";
+                case ElectricityUnitRate.Night: return "night";
+                default: throw new ArgumentOutOfRangeException(nameof(rate));
             }
         }
 
@@ -203,9 +203,9 @@ namespace ImpSoft.OctopusEnergy.Api
         private HttpClient Client { get; }
 
         public async Task<IEnumerable<Consumption>> GetElectricityConsumptionAsync(string apiKey, string mpan, string serialNumber,
-            DateTimeOffset from, DateTimeOffset to, Interval interval = Interval.Default)
+            DateTimeOffset from, DateTimeOffset to, Interval group = Interval.Default)
         {
-            var uri = ComposeGetElectricityConsumptionUri(mpan, serialNumber, from, to, interval);
+            var uri = ComposeGetElectricityConsumptionUri(mpan, serialNumber, from, to, group);
 
             return await GetCollectionAsync<Consumption>(uri, apiKey);
         }
@@ -222,9 +222,9 @@ namespace ImpSoft.OctopusEnergy.Api
         }
 
         public async Task<IEnumerable<Consumption>> GetGasConsumptionAsync(string apiKey, string mprn, string serialNumber,
-            DateTimeOffset from, DateTimeOffset to, Interval interval = Interval.Default)
+            DateTimeOffset from, DateTimeOffset to, Interval group = Interval.Default)
         {
-            var uri = ComposeGetGasConsumptionUri(mprn, serialNumber, from, to, interval);
+            var uri = ComposeGetGasConsumptionUri(mprn, serialNumber, from, to, group);
 
             return await GetCollectionAsync<Consumption>(uri, apiKey);
         }
@@ -275,9 +275,6 @@ namespace ImpSoft.OctopusEnergy.Api
                 Method = HttpMethod.Get,
                 RequestUri = uri
             };
-
-            // TODO: if the api key was configured in the HttpClientHandler then this method could be reduced to:
-            // await Client.GetFromJsonAsync<TResult>(uri);
 
             if (!string.IsNullOrEmpty(apiKey))
             {
