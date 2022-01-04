@@ -1,4 +1,4 @@
-name: Azure Static Web Apps 1
+name: Azure Static Web Apps
 
 on:
   push:
