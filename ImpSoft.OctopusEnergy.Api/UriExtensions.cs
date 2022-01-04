@@ -16,7 +16,11 @@ namespace ImpSoft.OctopusEnergy.Api
 
         public static Uri AddQueryParam(this Uri uri, string name, bool? value)
         {
-            return value == null ? uri : uri.AddQueryParam(name, value.Value ? "true" : "false");
+            if (value == null)
+            {
+                return uri;
+            }
+            return uri.AddQueryParam(name, value.Value.ToString());
         }
 
         public static Uri AddQueryParam(this Uri uri, string name, int value)
