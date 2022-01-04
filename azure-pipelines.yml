@@ -74,6 +74,10 @@ steps:
     targetPath: '$(Pipeline.Workspace)/a/Blog.TimerFunction.zip'
     artifact: 'TimerFunction'
     publishLocation: 'pipeline'    
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: 'ImpSoft.OctopusEnergy.Api.Tests/ImpSoft.OctopusEnergy.Api.Tests.csproj'
 - task: SonarCloudAnalyze@1
 
 - task: SonarCloudPublish@1
