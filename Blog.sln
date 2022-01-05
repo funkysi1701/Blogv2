@@ -8,7 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{42A7550E-4BB8-4506-A5C6-34F5E1812F17}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\azure-static-web-apps-brave-rock-0aac63d03.yml = .github\workflows\azure-static-web-apps-brave-rock-0aac63d03.yml
-		.github\workflows\azure-static-web-apps-witty-dune-0a1a77903.yml = .github\workflows\azure-static-web-apps-witty-dune-0a1a77903.yml
 		lighthouserc.json = lighthouserc.json
 	EndProjectSection
 EndProject
