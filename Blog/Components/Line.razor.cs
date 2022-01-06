@@ -238,8 +238,8 @@ namespace Blog.Components
                 }
                 else
                 {
-                    PrevSet.Label = "N/A";
-                    PrevSet.Hidden = true;
+                    Set.Label = dt.ToString("yyyy-MM");
+                    PrevSet.Label = dt.AddMonths(-12).ToString("yyyy-MM");
                 }
             }
 

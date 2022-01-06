@@ -196,6 +196,36 @@ namespace Blog.Pages
                     monthlyLabel.Add(item.Date);
                     monthlyData.Add(item.Value.Value);
                 }
+
+                preresult =
+                    from s in monthlyChart[1].OrderBy(x => x.Date)
+                    group s by new
+                    {
+                        Date = new DateTime(s.Date.Year, s.Date.Month, s.Date.Day, s.Date.Hour, 0, 0)
+                    } into g
+                    select new
+                    {
+                        g.Key.Date,
+                        Total = g.Average(x => x.Total),
+                    };
+
+                result =
+                    from s in preresult
+                    group s by new
+                    {
+                        Date = new DateTime(s.Date.Year, s.Date.Month, 1)
+                    } into g
+                    select new
+                    {
+                        g.Key.Date,
+                        Value = g.Sum(x => x.Total),
+                    };
+
+                foreach (var item in result)
+                {
+                    monthlyLabel.Add(item.Date);
+                    monthlyPrevData.Add(item.Value.Value);
+                }
             }
             else
             {
@@ -215,6 +245,24 @@ namespace Blog.Pages
                 {
                     monthlyLabel.Add(item.Date);
                     monthlyData.Add(item.Value.Value);
+                }
+
+                result =
+                    from s in monthlyChart[1].OrderBy(x => x.Date)
+                    group s by new
+                    {
+                        Date = new DateTime(s.Date.Year, s.Date.Month, 1)
+                    } into g
+                    select new
+                    {
+                        g.Key.Date,
+                        Value = g.Max(x => x.Total),
+                    };
+
+                foreach (var item in result)
+                {
+                    monthlyLabel.Add(item.Date);
+                    monthlyPrevData.Add(item.Value.Value);
                 }
             }
             LoadCompleteM = true;
