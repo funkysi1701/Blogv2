@@ -64,6 +64,7 @@ namespace Blog.Components
                             {
                                 new TimeAxis
                                 {
+                                    ID = "1",
                                     Distribution = TimeDistribution.Linear,
                                     Ticks = new TimeTicks
                                     {
@@ -111,6 +112,7 @@ namespace Blog.Components
                             {
                                 new TimeAxis
                                 {
+                                    ID = "1",
                                     Distribution = TimeDistribution.Linear,
                                     Ticks = new TimeTicks
                                     {
@@ -220,7 +222,7 @@ namespace Blog.Components
                 Set.Add(points);
             }
 
-            for (int i = 0; i < PrevData.Count; i++)
+            for (int i = 0; i < (Data.Count < PrevData.Count ? Data.Count : PrevData.Count); i++)
             {
                 var s = Labels[i];
                 var points = new TimeTuple<decimal>(new Moment(s), Convert.ToDecimal(PrevData[i]));
