@@ -64,6 +64,7 @@ namespace Blog.Components
                             {
                                 new TimeAxis
                                 {
+                                    ID = "1",
                                     Distribution = TimeDistribution.Linear,
                                     Ticks = new TimeTicks
                                     {
@@ -111,6 +112,7 @@ namespace Blog.Components
                             {
                                 new TimeAxis
                                 {
+                                    ID = "1",
                                     Distribution = TimeDistribution.Linear,
                                     Ticks = new TimeTicks
                                     {
