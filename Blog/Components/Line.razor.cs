@@ -15,6 +15,9 @@ using System.Linq;
 
 namespace Blog.Components
 {
+    /// <summary>
+    ///
+    /// </summary>
     public class LineBase : ComponentBase
     {
         protected LineConfig _config;
