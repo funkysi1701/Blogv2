@@ -158,6 +158,7 @@ namespace Blog.Components
                             {
                                 new TimeAxis
                                 {
+                                    ID = "1",
                                     Distribution = TimeDistribution.Linear,
                                     Ticks = new TimeTicks
                                     {
@@ -193,7 +194,8 @@ namespace Blog.Components
                 PointBorderWidth = 1,
                 SteppedLine = SteppedLine.False,
                 ShowLine = true,
-                Label = "Current"
+                Label = "Current",
+                XAxisID = "1"
             };
 
             PrevSet = new LineDataset<TimeTuple<decimal>>
@@ -203,11 +205,12 @@ namespace Blog.Components
                 BorderColor = ColorUtil.FromDrawingColor(Color.LightBlue),
                 Fill = false,
                 BorderWidth = 1,
-                PointRadius = 3,
+                PointRadius = 5,
                 PointBorderWidth = 1,
                 SteppedLine = SteppedLine.False,
                 ShowLine = true,
-                Label = "Previous"
+                Label = "Previous",
+                XAxisID = "1"
             };
 
             for (int i = 0; i < Data.Count; i++)
@@ -217,7 +220,7 @@ namespace Blog.Components
                 Set.Add(points);
             }
 
-            for (int i = 0; i < (Data.Count < PrevData.Count ? Data.Count : PrevData.Count); i++)
+            for (int i = 0; i < PrevData.Count; i++)
             {
                 var s = Labels[i];
                 var points = new TimeTuple<decimal>(new Moment(s), Convert.ToDecimal(PrevData[i]));
@@ -239,7 +242,7 @@ namespace Blog.Components
                 else
                 {
                     Set.Label = dt.ToString("yyyy-MM");
-                    PrevSet.Label = dt.AddMonths(-12).ToString("yyyy-MM");
+                    PrevSet.Label = dt.AddMonths(-6).ToString("yyyy-MM");
                 }
             }
 
