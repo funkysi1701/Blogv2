@@ -16,7 +16,7 @@ using System.Linq;
 namespace Blog.Components
 {
     /// <summary>
-    ///
+    /// test
     /// </summary>
     public class LineBase : ComponentBase
     {
