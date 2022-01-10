@@ -9,7 +9,6 @@ on:
 
 jobs:
   dev:
-    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     environment: 
       name: Dev
@@ -32,7 +31,7 @@ jobs:
           output_location: "wwwroot" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
   test:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     environment: 
       name: Test
@@ -55,7 +54,7 @@ jobs:
           output_location: "wwwroot" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
   prod:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: 
       name: Prod
