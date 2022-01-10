@@ -32,7 +32,6 @@ for (int i = 0; i < (int)MetricType.Electricity + 1; i++)
         catch (Exception ex)
         {
             Console.WriteLine(ex.ToString());
-            //await containerNew.ReplaceItemAsync<Metric>(item, item.id.ToString());
         }
         Console.WriteLine(item.Date?.ToString("yyyy-MM-dd HH:mm"));
     }
