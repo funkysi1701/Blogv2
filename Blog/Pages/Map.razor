@@ -1,9 +1,9 @@
 ﻿@page "/sitemap"
 @using System.Text
+@using System.IO
 @layout EmptyLayout
 @inject BlogService blogService
-
-@((MarkupString)sitemapContent)
+@inject IJSRuntime JS
 
 @code{
     protected string sitemapContent { get; set; }
@@ -79,5 +79,14 @@
         sitemapContent += string.Format("<lastmod>{0}</lastmod>", DateTime.UtcNow.ToString("yyyy-MM-dd"));
         sitemapContent += "</url>";
         sitemapContent += "</urlset>";
+
+        using var memoryStream = new MemoryStream();
+        var bytes = Encoding.UTF8.GetBytes(sitemapContent);
+        memoryStream.Write(bytes, 0, bytes.Length);
+        memoryStream.Seek(0, SeekOrigin.Begin);
+
+        using var streamRef = new DotNetStreamReference(stream: memoryStream);
+
+        await JS.InvokeVoidAsync("downloadFileFromStream", "sitemap.xml", streamRef);
     }
 }
