@@ -10,10 +10,32 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: lighthouse-ci@1
+  displayName: 'lh healthcheck'
+  inputs:
+    command: 'healthcheck'
+    targetArtifactPath: '$(Pipeline.Workspace)/s/'
+    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
+    parameters: '--token $(LHCI_TOKEN) --githubToken $(GITHUB)'
+- task: lighthouse-ci@1
+  displayName: 'lh collect'
+  inputs:
+    command: 'collect'
+    targetArtifactPath: '$(Pipeline.Workspace)/s/'
+    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
+    parameters: '--token $(LHCI_TOKEN) --githubToken $(GITHUB)'
+- task: lighthouse-ci@1
+  displayName: 'lh assert'
+  inputs:
+    command: 'assert'
+    targetArtifactPath: '$(Pipeline.Workspace)/s/'
+    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
+    parameters: '--token $(LHCI_TOKEN) --githubToken $(GITHUB)'
+  continueOnError: true  
+- task: lighthouse-ci@1
+  displayName: 'lh upload'
+  inputs:
+    command: 'upload'
+    targetArtifactPath: '$(Pipeline.Workspace)/s/'
+    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
+    parameters: '--token $(LHCI_TOKEN) --githubToken $(GITHUB)'
