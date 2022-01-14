@@ -1,6 +1,6 @@
 name: $(BuildDefinitionName)-$(SourceBranchName)-$(date:yyyyMMdd)$(Rev:.r)
 
-trigger: none
+pr: none
 
 pool:
   vmImage: ubuntu-latest
