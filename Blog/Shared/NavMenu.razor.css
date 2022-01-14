@@ -60,8 +60,9 @@
         display: block;
     }
 }
+
 @media (max-width: 404px) {
     a {
-        display:none;
+        display: none;
     }
 }
