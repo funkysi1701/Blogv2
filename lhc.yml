@@ -1,40 +1,85 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+name: $(BuildDefinitionName)-$(SourceBranchName)-$(date:yyyyMMdd)$(Rev:.r)
 
-pr: none
+trigger:
+- main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-2022
+
+variables:
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
 
 steps:
-- task: lighthouse-ci@1
-  displayName: 'lh healthcheck'
+- task: SonarCloudPrepare@1
   inputs:
-    command: 'healthcheck'
-    targetArtifactPath: '$(Pipeline.Workspace)/s/'
-    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
-    parameters: '--token $(LHCI_TOKEN) --githubToken $(GITHUB)'
-- task: lighthouse-ci@1
-  displayName: 'lh collect'
+    SonarCloud: 'SonaClouds'
+    organization: 'funkysi1701'
+    scannerMode: 'MSBuild'
+    projectKey: 'funkysi1701_Blogv2'
+    projectName: 'Blogv2'
+    projectVersion: '$(Build.BuildId)'
+
+- task: DotNetCoreCLI@2
   inputs:
-    command: 'collect'
-    targetArtifactPath: '$(Pipeline.Workspace)/s/'
-    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
-    parameters: '--token $(LHCI_TOKEN) --githubToken $(GITHUB)'
-- task: lighthouse-ci@1
-  displayName: 'lh assert'
+    command: 'restore'
+    projects: 'Blog.sln'
+    feedsToUse: 'select'
+    vstsFeed: '/2c2a6a60-448c-4153-a1be-d2ce39bfbb0d'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build Web'
   inputs:
-    command: 'assert'
-    targetArtifactPath: '$(Pipeline.Workspace)/s/'
-    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
-    parameters: '--token $(LHCI_TOKEN) --githubToken $(GITHUB)'
-  continueOnError: true  
-- task: lighthouse-ci@1
-  displayName: 'lh upload'
+    command: 'build'
+    projects: 'Blog.sln'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build Func'
   inputs:
-    command: 'upload'
-    targetArtifactPath: '$(Pipeline.Workspace)/s/'
-    configFilePath: '$(Pipeline.Workspace)/s/lighthouserc.json'
-    parameters: '--token $(LHCI_TOKEN) --githubToken $(GITHUB)'
+    command: 'build'
+    projects: 'Blog.Func/Blog.Func.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build TimerFunction'
+  inputs:
+    command: 'build'
+    projects: 'Blog.TimerFunction/Blog.TimerFunction.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publish'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'Blog.Func/Blog.Func.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory) /p:SourceRevisionId=$(Build.SourceVersion)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publish'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'Blog.TimerFunction/Blog.TimerFunction.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory) /p:SourceRevisionId=$(Build.SourceVersion)'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)/a/Blog.Func.zip'
+    artifact: 'func'
+    publishLocation: 'pipeline'    
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)/a/Blog.TimerFunction.zip'
+    artifact: 'TimerFunction'
+    publishLocation: 'pipeline'    
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: 'ImpSoft.OctopusEnergy.Api.Tests/ImpSoft.OctopusEnergy.Api.Tests.csproj'
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
