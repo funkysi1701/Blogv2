@@ -6,7 +6,9 @@ name: Build and deploy ASP.Net Core app to Azure Web App - blogv2sitemap
 on:
   push:
     branches:
-      - feature/sitemap
+      - main
+      - develop
+      - feature/*
   workflow_dispatch:
 
 jobs:
