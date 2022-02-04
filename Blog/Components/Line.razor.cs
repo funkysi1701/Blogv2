@@ -244,7 +244,7 @@ namespace Blog.Components
                 else
                 {
                     Set.Label = dt.ToString("yyyy-MM");
-                    PrevSet.Label = dt.AddMonths(-6).ToString("yyyy-MM");
+                    PrevSet.Label = dt.AddMonths(-7).ToString("yyyy-MM");
                 }
             }
 
