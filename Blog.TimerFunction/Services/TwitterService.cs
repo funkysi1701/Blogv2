@@ -25,7 +25,6 @@ namespace Blog.TimerFunction.Services
             users = new List<string>
             {
                 Configuration.GetValue<string>("Username1"),
-                "davidfowl",
                 "zogface",
                 "juliankay"
             };
