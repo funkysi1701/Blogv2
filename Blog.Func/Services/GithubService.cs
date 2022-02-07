@@ -20,8 +20,7 @@ namespace Blog.Func.Services
             Chart = new Chart(cosmosClient, configuration);
             users = new List<string>
             {
-                Configuration.GetValue<string>("Username1"),
-                "davidfowl"
+                Configuration.GetValue<string>("Username1")
             };
         }
 
