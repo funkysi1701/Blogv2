@@ -1,5 +1,35 @@
 ﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="/">Funky Si's Blog by Simon Foster</a>
+    <button aria-label="Menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="https://www.funkysi1701.com/">Funky Si's Blog</a>
+
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="https://www.funkysi1701.com/" style="color: white" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="https://www.funkysi1701.com/posts/about/" style="color: white">
+                <span class="oi oi-person" aria-hidden="true"></span> About
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="https://metrics.funkysi1701.com/" style="color: white">
+                <span class="oi oi-graph" aria-hidden="true"></span> Metrics
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="https://www.funkysi1701.com/posts/pwned-pass/" style="color: white">
+                <span class="oi oi-phone" aria-hidden="true"></span> Pwned Pass
+            </NavLink>
+        </li>
+
+    </ul>
 </div>
 
 @code {
