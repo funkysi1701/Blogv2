@@ -13,10 +13,16 @@ jobs:
     environment: 
       name: Dev
     name: Dev
-    steps:
+    steps:      
       - uses: actions/checkout@v3
         with:
           submodules: true
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0
+      - name: Publish with dotnet
+        run: dotnet publish Blog/Blog.csproj --configuration Release --output build
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
