@@ -40,13 +40,13 @@ namespace Blog.Pages
         protected List<decimal> dailyPrevData = new();
         protected List<decimal> monthlyPrevData = new();
 
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
             if (string.IsNullOrEmpty(Username))
             {
                 Username = "funkysi1701";
             }
-            await Load();
+            Load();
         }
 
         public void RefreshMe()
@@ -78,6 +78,7 @@ namespace Blog.Pages
             {
                 LoadCompleteH = true;
             }
+            StateHasChanged();
         }
 
         protected async Task LoadDaily(string Username)
@@ -160,6 +161,7 @@ namespace Blog.Pages
                 }
             }
             LoadCompleteD = true;
+            StateHasChanged();
         }
 
         protected async Task LoadMonthly(string Username)
@@ -266,6 +268,7 @@ namespace Blog.Pages
                 }
             }
             LoadCompleteM = true;
+            StateHasChanged();
         }
 
         protected async Task Load()
