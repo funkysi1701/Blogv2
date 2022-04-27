@@ -51,5 +51,8 @@ namespace Blog.Core
 
         [Description("Electricity (kW/h)")]
         Electricity,
+
+        [Description("Blog Count")]
+        Blog
     }
 }

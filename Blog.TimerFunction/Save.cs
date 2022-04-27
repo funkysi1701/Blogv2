@@ -12,13 +12,15 @@ namespace Blog.TimerFunction
         private readonly PowerService powerService;
         private readonly GithubService githubService;
         private readonly DevToService devToService;
+        private readonly BlogService blogService;
 
-        public Save(TwitterService twitterService, PowerService powerService, GithubService githubService, DevToService devToService)
+        public Save(TwitterService twitterService, PowerService powerService, GithubService githubService, DevToService devToService, BlogService blogService)
         {
             this.twitterService = twitterService;
             this.powerService = powerService;
             this.githubService = githubService;
             this.devToService = devToService;
+            this.blogService = blogService;
         }
 
         [FunctionName("SaveTwitterFav")]
@@ -103,6 +105,13 @@ namespace Blog.TimerFunction
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await devToService.GetDevTo();
+        }
+
+        [FunctionName("SaveBlog")]
+        public async Task Run13([TimerTrigger("0 * * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
+        {
+            log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
+            await blogService.GetBlogCount();
         }
     }
 }
