@@ -33,6 +33,7 @@ namespace Blog.TimerFunction
             builder.Services.AddScoped<TwitterService>();
             builder.Services.AddScoped<DevToService>();
             builder.Services.AddScoped<PowerService>();
+            builder.Services.AddScoped<BlogService>();
             builder.Services.AddHttpClient<IOctopusEnergyClient, OctopusEnergyClient>()
                 .ConfigurePrimaryHttpMessageHandler(h => new HttpClientHandler
                 {
