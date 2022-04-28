@@ -148,7 +148,7 @@ namespace Blog.TimerFunction
             var metrics = _container.GetItemLinqQueryable<Metric>(true, null, new QueryRequestOptions { MaxItemCount = -1 }).Where(x => x.Type == (int)type && x.Username == username).ToList();
             List<Metric> LiveMetrics;
             List<Metric> PrevMetrics;
-            if (type >= MetricType.Blog)
+            if (type == MetricType.Gas || type == MetricType.Electricity)
             {
                 OffSet++;
             }
