@@ -3,7 +3,6 @@ using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
@@ -29,6 +28,17 @@ namespace Blog.TimerFunction.Services
                 .XPathSelectElements("//item")
                 .Count();
             await Chart.SaveData(count, (int)MetricType.Blog, Configuration.GetValue<string>("Username1"));
+        }
+
+        public async Task GetOldBlogCount()
+        {
+            var url = Configuration.GetValue<string>("OldRSSFeed");
+
+            var count = XDocument
+                .Load(url)
+                .XPathSelectElements("//item")
+                .Count();
+            await Chart.SaveData(count, (int)MetricType.OldBlog, Configuration.GetValue<string>("Username1"));
         }
     }
 }

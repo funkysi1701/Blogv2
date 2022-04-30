@@ -113,5 +113,12 @@ namespace Blog.TimerFunction
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await blogService.GetBlogCount();
         }
+
+        [FunctionName("SaveOldBlog")]
+        public async Task Run14([TimerTrigger("0 59 * * * *", RunOnStartup = false)] TimerInfo myTimer, ILogger log, ExecutionContext context)
+        {
+            log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
+            await blogService.GetOldBlogCount();
+        }
     }
 }
