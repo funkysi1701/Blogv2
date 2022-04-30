@@ -53,6 +53,9 @@ namespace Blog.Core
         Electricity,
 
         [Description("Blog Count")]
-        Blog
+        Blog,
+
+        [Description("Old Blog Count")]
+        OldBlog
     }
 }

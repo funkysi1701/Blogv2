@@ -9,7 +9,7 @@
 <p>A page of metrics about me from various services.</p>
 
 <div class="post-content">
-    @for (int i = 0; i < (int)MetricType.Blog + 1; i++)
+    @for (int i = 0; i < (int)MetricType.OldBlog + 1; i++)
     {
         <Chart Type="@((MetricType)i)" OffSet="@OffSet" Username="@Username"></Chart>
     }
