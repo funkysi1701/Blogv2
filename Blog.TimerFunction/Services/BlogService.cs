@@ -20,7 +20,7 @@ namespace Blog.TimerFunction.Services
             Chart = new Chart(cosmosClient, Configuration);
         }
 
-        public async Task GetBlogCount()
+        public async Task GetBlogCount(ILogger log)
         {
             var url = Configuration.GetValue<string>("RSSFeed");
 
@@ -31,7 +31,7 @@ namespace Blog.TimerFunction.Services
             await Chart.SaveData(count, (int)MetricType.Blog, Configuration.GetValue<string>("Username1"));
         }
 
-        public async Task GetOldBlogCount()
+        public async Task GetOldBlogCount(ILogger log)
         {
             var url = Configuration.GetValue<string>("OldRSSFeed");
             try
@@ -44,6 +44,7 @@ namespace Blog.TimerFunction.Services
             }
             catch (Exception e)
             {
+                log.LogError(e.Message);
                 await Chart.SaveData(0, (int)MetricType.OldBlog, Configuration.GetValue<string>("Username1"));
             }
         }
