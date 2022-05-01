@@ -37,6 +37,7 @@ namespace Blog.TimerFunction.Services
         {
             var url = Configuration.GetValue<string>("OldRSSFeed");
 
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
             ServicePointManager.ServerCertificateValidationCallback += new System.Net.Security.RemoteCertificateValidationCallback((s, ce, ch, ssl) => true);
 
             var count = XDocument
