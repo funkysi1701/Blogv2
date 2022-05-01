@@ -36,22 +36,14 @@ namespace Blog.TimerFunction.Services
         public async Task GetOldBlogCount(ILogger log)
         {
             var url = Configuration.GetValue<string>("OldRSSFeed");
-            try
-            {
-                ServicePointManager.ServerCertificateValidationCallback += new System.Net.Security.RemoteCertificateValidationCallback((s, ce, ch, ssl) => true);
 
-                var count = XDocument
+            ServicePointManager.ServerCertificateValidationCallback += new System.Net.Security.RemoteCertificateValidationCallback((s, ce, ch, ssl) => true);
 
-                    .Load(url)
-                    .XPathSelectElements("//item")
-                    .Count();
-                await Chart.SaveData(count, (int)MetricType.OldBlog, Configuration.GetValue<string>("Username1"));
-            }
-            catch (Exception e)
-            {
-                log.LogError(e.Message);
-                await Chart.SaveData(0, (int)MetricType.OldBlog, Configuration.GetValue<string>("Username1"));
-            }
+            var count = XDocument
+                .Load(url)
+                .XPathSelectElements("//item")
+                .Count();
+            await Chart.SaveData(count, (int)MetricType.OldBlog, Configuration.GetValue<string>("Username1"));
         }
     }
 }
