@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -37,7 +38,10 @@ namespace Blog.TimerFunction.Services
             var url = Configuration.GetValue<string>("OldRSSFeed");
             try
             {
+                ServicePointManager.ServerCertificateValidationCallback += new System.Net.Security.RemoteCertificateValidationCallback((s, ce, ch, ssl) => true);
+
                 var count = XDocument
+
                     .Load(url)
                     .XPathSelectElements("//item")
                     .Count();
