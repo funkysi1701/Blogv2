@@ -55,7 +55,11 @@ namespace Blog.TimerFunction.Services
         {
             using (var client = new HttpClient())
             using (var result = await client.GetAsync(url))
+            {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Tls13;
+                ServicePointManager.ServerCertificateValidationCallback += new System.Net.Security.RemoteCertificateValidationCallback((s, ce, ch, ssl) => true);
                 return result.IsSuccessStatusCode ? await result.Content.ReadAsByteArrayAsync() : null;
+            }
         }
     }
 }
