@@ -3,8 +3,10 @@ using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -36,14 +38,24 @@ namespace Blog.TimerFunction.Services
         public async Task GetOldBlogCount(ILogger log)
         {
             var url = Configuration.GetValue<string>("OldRSSFeed");
+            var content = await DownloadData(url);
+            if (content != null)
+            {
+                await File.WriteAllBytesAsync($"file.xml", content);
 
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Tls12;
-
-            var count = XDocument
-                .Load(url)
+                var count = XDocument
+                .Load("file.xml")
                 .XPathSelectElements("//item")
                 .Count();
-            await Chart.SaveData(count, (int)MetricType.OldBlog, Configuration.GetValue<string>("Username1"));
+                await Chart.SaveData(count, (int)MetricType.OldBlog, Configuration.GetValue<string>("Username1"));
+            }
+        }
+
+        public async Task<byte[]?> DownloadData(string url)
+        {
+            using (var client = new HttpClient())
+            using (var result = await client.GetAsync(url))
+                return result.IsSuccessStatusCode ? await result.Content.ReadAsByteArrayAsync() : null;
         }
     }
 }
