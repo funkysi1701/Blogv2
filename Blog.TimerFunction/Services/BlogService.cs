@@ -42,16 +42,21 @@ namespace Blog.TimerFunction.Services
             if (content != null)
             {
                 await File.WriteAllBytesAsync($"file.xml", content);
-
+                log.LogInformation("File Downloaded");
                 var count = XDocument
                 .Load("file.xml")
                 .XPathSelectElements("//item")
                 .Count();
+                log.LogInformation($"{count} posts found");
                 await Chart.SaveData(count, (int)MetricType.OldBlog, Configuration.GetValue<string>("Username1"));
+            }
+            else
+            {
+                log.LogError("Download Failed");
             }
         }
 
-        public async Task<byte[]?> DownloadData(string url)
+        public async Task<byte[]> DownloadData(string url)
         {
             using (var client = new HttpClient())
             using (var result = await client.GetAsync(url))
