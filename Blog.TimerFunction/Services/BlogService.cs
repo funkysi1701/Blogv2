@@ -38,7 +38,7 @@ namespace Blog.TimerFunction.Services
         public async Task GetOldBlogCount(ILogger log)
         {
             var url = Configuration.GetValue<string>("OldRSSFeed");
-            var content = await DownloadData(url);
+            var content = await DownloadData(url, log);
             if (content != null)
             {
                 await File.WriteAllBytesAsync($"file.xml", content);
@@ -56,14 +56,18 @@ namespace Blog.TimerFunction.Services
             }
         }
 
-        public async Task<byte[]> DownloadData(string url)
+        public static async Task<byte[]> DownloadData(string url, ILogger log)
         {
-            using (var client = new HttpClient())
-            using (var result = await client.GetAsync(url))
+            try
             {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Tls13;
-                ServicePointManager.ServerCertificateValidationCallback += new System.Net.Security.RemoteCertificateValidationCallback((s, ce, ch, ssl) => true);
+                using var client = new HttpClient();
+                using var result = await client.GetAsync(url);
                 return result.IsSuccessStatusCode ? await result.Content.ReadAsByteArrayAsync() : null;
+            }
+            catch (Exception e)
+            {
+                log.LogError(e.Message);
+                return null;
             }
         }
     }
