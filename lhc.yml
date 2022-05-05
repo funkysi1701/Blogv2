@@ -3,6 +3,7 @@ name: $(BuildDefinitionName)-$(SourceBranchName)-$(date:yyyyMMdd)$(Rev:.r)
 trigger:
 - main
 - develop
+- feature/*
 
 pool:
   vmImage: windows-2022
