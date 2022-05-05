@@ -60,8 +60,8 @@ namespace Blog.TimerFunction.Services
         {
             try
             {
-                using var client = new HttpClient();
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+                using var client = new HttpClient();
                 using var result = await client.GetAsync(url);
                 return result.IsSuccessStatusCode ? await result.Content.ReadAsByteArrayAsync() : null;
             }
