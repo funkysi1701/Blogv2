@@ -41,10 +41,10 @@ namespace Blog.TimerFunction.Services
             var content = await DownloadData(url, log);
             if (content != null)
             {
-                await File.WriteAllBytesAsync($"file.xml", content);
+                await File.WriteAllBytesAsync($"C:\\local\\Temp\\file.xml", content);
                 log.LogInformation("File Downloaded");
                 var count = XDocument
-                .Load("file.xml")
+                .Load("C:\\local\\Temp\file.xml")
                 .XPathSelectElements("//item")
                 .Count();
                 log.LogInformation($"{count} posts found");
