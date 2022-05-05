@@ -68,6 +68,7 @@ namespace Blog.TimerFunction.Services
             {
                 log.LogError(e.Message);
                 log.LogError(e.InnerException?.Message);
+                log.LogError(e, "Error");
                 return null;
             }
         }
