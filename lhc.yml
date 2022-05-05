@@ -5,6 +5,7 @@ trigger:
 - develop
 - feature/*
 
+
 pool:
   vmImage: windows-2022
 
