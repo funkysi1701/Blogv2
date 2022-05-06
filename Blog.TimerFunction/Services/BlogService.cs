@@ -1,6 +1,7 @@
 ﻿using Blog.Core;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -19,7 +20,7 @@ namespace Blog.TimerFunction.Services
             Chart = new Chart(cosmosClient, Configuration);
         }
 
-        public async Task GetBlogCount()
+        public async Task GetBlogCount(ILogger log)
         {
             var url = Configuration.GetValue<string>("RSSFeed");
 
@@ -27,10 +28,11 @@ namespace Blog.TimerFunction.Services
                 .Load(url)
                 .XPathSelectElements("//item")
                 .Count();
+            log.LogInformation($"{count} posts found");
             await Chart.SaveData(count, (int)MetricType.Blog, Configuration.GetValue<string>("Username1"));
         }
 
-        public async Task GetOldBlogCount()
+        public async Task GetOldBlogCount(ILogger log)
         {
             var url = Configuration.GetValue<string>("OldRSSFeed");
 
@@ -38,6 +40,7 @@ namespace Blog.TimerFunction.Services
                 .Load(url)
                 .XPathSelectElements("//item")
                 .Count();
+            log.LogInformation($"{count} posts found");
             await Chart.SaveData(count, (int)MetricType.OldBlog, Configuration.GetValue<string>("Username1"));
         }
     }
