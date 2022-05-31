@@ -56,6 +56,21 @@ namespace Blog.Core
         Blog,
 
         [Description("Old Blog Count")]
-        OldBlog
+        OldBlog,
+
+        [Description("OPS Posts")]
+        OPSPosts,
+
+        [Description("OPS Published Posts")]
+        OPSPublishedPosts,
+
+        [Description("OPS Views")]
+        OPSViews,
+
+        [Description("OPS Reactions")]
+        OPSReactions,
+
+        [Description("OPS Comments")]
+        OPSComments,
     }
 }
