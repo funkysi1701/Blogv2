@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Cosmos;
+﻿using Blog.Core;
+using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,6 @@ namespace Blog.Func.Services
         private readonly Chart Chart;
         private IConfiguration Configuration { get; set; }
         private readonly List<string> users;
-        private GetAllBlogs GetAllBlogs { get; set; }
 
         public DevToService(IConfiguration configuration, CosmosClient cosmosClient)
         {
@@ -21,7 +21,6 @@ namespace Blog.Func.Services
             {
                 Configuration.GetValue<string>("Username1")
             };
-            GetAllBlogs = new GetAllBlogs();
         }
 
         public async Task GetDevTo()
@@ -29,8 +28,8 @@ namespace Blog.Func.Services
             foreach (var username in users)
             {
                 var blogs = await GetAllBlogs.GetAll(Configuration, 200);
-                await Chart.SaveData(blogs.Count, 9, username);
-                await Chart.SaveData(blogs.Count(x => x.Published), 10, username);
+                await Chart.SaveData(blogs.Count, (int)MetricType.DevToPosts, username);
+                await Chart.SaveData(blogs.Count(x => x.Published), (int)MetricType.DevToPublishedPosts, username);
                 int views = 0;
                 int reactions = 0;
                 int comments = 0;
@@ -40,9 +39,24 @@ namespace Blog.Func.Services
                     reactions += item.Positive_Reactions_Count;
                     comments += item.Comments_Count;
                 }
-                await Chart.SaveData(views, 11, username);
-                await Chart.SaveData(reactions, 12, username);
-                await Chart.SaveData(comments, 13, username);
+                await Chart.SaveData(views, (int)MetricType.DevToViews, username);
+                await Chart.SaveData(reactions, (int)MetricType.DevToReactions, username);
+                await Chart.SaveData(comments, (int)MetricType.DevToComments, username);
+                blogs = await GetAllBlogs.GetAllOps(Configuration, 200);
+                await Chart.SaveData(blogs.Count, (int)MetricType.OPSPosts, username);
+                await Chart.SaveData(blogs.Count(x => x.Published), (int)MetricType.OPSPublishedPosts, username);
+                views = 0;
+                reactions = 0;
+                comments = 0;
+                foreach (var item in blogs)
+                {
+                    views += item.Page_Views_Count;
+                    reactions += item.Positive_Reactions_Count;
+                    comments += item.Comments_Count;
+                }
+                await Chart.SaveData(views, (int)MetricType.OPSViews, username);
+                await Chart.SaveData(reactions, (int)MetricType.OPSReactions, username);
+                await Chart.SaveData(comments, (int)MetricType.OPSComments, username);
             }
         }
     }
