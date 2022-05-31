@@ -12,7 +12,6 @@ namespace Blog.Func.Services
         private readonly Chart Chart;
         private IConfiguration Configuration { get; set; }
         private readonly List<string> users;
-        private GetAllBlogs GetAllBlogs { get; set; }
 
         public DevToService(IConfiguration configuration, CosmosClient cosmosClient)
         {
@@ -22,7 +21,6 @@ namespace Blog.Func.Services
             {
                 Configuration.GetValue<string>("Username1")
             };
-            GetAllBlogs = new GetAllBlogs();
         }
 
         public async Task GetDevTo()
