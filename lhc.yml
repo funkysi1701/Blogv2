@@ -22,7 +22,13 @@ steps:
     projectKey: 'funkysi1701_Blogv2'
     projectName: 'Blogv2'
     projectVersion: '$(Build.BuildId)'
-
+    
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '7.x'
+    includePreviewVersions: true
+    
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
