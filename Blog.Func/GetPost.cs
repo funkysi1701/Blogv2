@@ -27,6 +27,7 @@ namespace Blog.Func
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log,
+            IHttpClientFactory clientFactory,
             ExecutionContext context)
         {
             log.LogInformation("GetPost");
@@ -35,7 +36,7 @@ namespace Blog.Func
                 .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables()
                 .Build();
-            var Client = new HttpClient();
+            var Client = clientFactory.CreateClient();
             Client.DefaultRequestHeaders.Add("api-key", config.GetValue<string>("DEVTOAPI"));
             var productValue = new ProductInfoHeaderValue("Funkysi1701Blog", "1.0");
             var commentValue = new ProductInfoHeaderValue("(+https://www.funkysi1701.com)");
